@@ -1,0 +1,47 @@
+body{
+    margin: 0;
+}
+
+/* Header Styling */
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    margin: 0;
+    padding: 30px;
+}
+
+header button{
+    border-radius: 1rem ;
+    width: 200px;
+    height: 70px;
+    background-color: #27A4D9; 
+}
+
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+}
+
+.icon{
+    width: 30px;
+}
+
+.logo{
+    height: 70px;
+}
+
+header button a, header button p{
+    text-decoration: none;
+    color: #C60000;
+    display: flex;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+
+
+/*Home Styling*/

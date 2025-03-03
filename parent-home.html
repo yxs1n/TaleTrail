@@ -43,13 +43,14 @@
         </button>
         <!-- Add log popup-->
          <div class="log-popup" id="myPopup">
-            <form action="" class="popup-container">
+            <!-- <form action="" class="popup-container"> -->
             <button type="button" class="close-button" onclick="closeAddLog()"> X </button>
             <h1>Add Log</h1>
             <label for="search-input"></label>
             <input type="search" id="search-input" placeholder="Enter book name here..." required>
-            <button type="submit" value="submit" class="submit-button">Submit</button>
-            </form>
+            <button onclick="searchBooks()" class="submit-button">Submit</button>
+            <div id="results"></div>
+            <!-- </form> -->
          </div>
 </body>
 </html>

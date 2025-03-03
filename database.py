@@ -7,8 +7,11 @@ cursor = conn.cursor()
 #Create a table
 cursor.execute("""CREATE TABLE bookInfo (
                id integer,
-               name text,
+               title text,
+               image blob,
+               author text,
                pages integer,
+               genre integer,
                band text
                )""")
 

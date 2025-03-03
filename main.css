@@ -1,0 +1,164 @@
+body{
+    margin: 0;
+}
+
+/* Header Styling */
+
+#shape{
+    width: 200px;
+    height: 70px;
+    background-color: #27A4D9;
+    border: #C60000 solid 5px;
+    border-radius:  1rem;
+
+}
+
+#shape p{
+    color: #C60000;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    margin: 0;
+    padding: 30px;
+}
+
+header button{
+    border-radius: 1rem ;
+    border: #C60000 solid 5px;  
+    width: 200px;
+    height: 70px;
+    background-color: #27A4D9;
+    
+
+}
+header button:hover{
+opacity: 90%;
+
+}
+
+header button a, header button p{
+    text-decoration: none;
+    color: #C60000;
+    display: flex;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.navbar{
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+}
+
+.icon{
+    width: 30px;
+}
+
+.logo{
+    height: 70px;
+}
+
+
+/* Home Page Styling */
+
+/* #home-content button{
+    background-color: #27A4D9; 
+    font-size: 20px;
+    border-radius: 1rem ;
+    width: 500px;
+    height: 100px;
+    color: #C60000;
+    font-weight: bold;
+}
+#home-content button a{
+    text-decoration: none;
+    color: #C60000;
+    display: flex;
+    font-weight: bold;
+    font-size: 20px;
+} */
+
+/* Parent Landing Page Styling */
+
+#add-log-button:hover, #roadmap-button:hover{
+cursor: pointer;
+opacity: 90%;
+}
+
+/* Add Log Popup */
+
+.log-popup{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 30px solid #C60000;
+}
+
+.popup-container{
+    max-width: 300px;
+    padding: 10px;
+    background-color: white;
+
+}
+
+.log-popup .submit-button{
+    width: 100px;
+    height: 50px;
+    background-color: #27A4D9;
+    border-radius: 1rem;
+    color: #C60000;
+    font-size: 16px;
+}
+
+.log-popup .close-button{
+    border-radius: 1rem;
+    border: #C60000;
+    background-color: #C60000;
+    color: white;
+    font-weight: bold;
+    width: 30px; 
+}
+
+.log-popup .cancel-button:hover, .log-popup .submit-button:hover{
+    cursor: pointer;
+    opacity: 80%;
+}
+
+
+#roadmap-popup{
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    border: 30px solid #C60000;
+}
+
+#roadmap-popup .close-button{
+    border-radius: 1rem;
+    border: #C60000;
+    background-color: #C60000;
+    color: white;
+    font-weight: bold;
+    width: 30px; 
+}
+
+#roadmap-button, #add-log-button{
+    background-color: #27A4D9; 
+    font-size: 20px;
+    border-radius: 1rem ;
+    width: 500px;
+    height: 100px;
+    color: #C60000;
+    font-weight: bold;
+}
+

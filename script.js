@@ -35,8 +35,17 @@ document.addEventListener('DOMContentLoaded', () => {
             if(data.length > 0) {
                 data.forEach(record => {
                     const [title, image, author, pages, genre, band] = record;
-                    const recordElement = document.createElement('p');
-                    recordElement.textContent = `Title: ${title}, Author: ${author}, Pages: ${pages}, Genre: ${genre}, Band: ${band}`;
+                    const recordElement = document.createElement('div');
+                    recordElement.className = 'search-result';
+                    recordElement.innerHTML = `
+                    <h3>${title}</h3>
+                    <p>Author: ${author}</p>
+                    <p>Pages: ${pages}</p>
+                    <p>Genre: ${genre}</p>
+                    <p>Band: ${band}</p>`;
+                    recordElement.addEventListener('click', () => {
+
+                    });
                     resultsDiv.appendChild(recordElement);
                 });
             } else {

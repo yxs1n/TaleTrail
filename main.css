@@ -133,6 +133,18 @@ opacity: 90%;
     opacity: 80%;
 }
 
+.search-result {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    background-color: aquamarine;
+    transition: background-color 0.3s;
+}
+
+.search-result:hover {
+    background-color: #f0f0f0;
+}
 
 #roadmap-popup{
     display: none;

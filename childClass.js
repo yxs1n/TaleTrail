@@ -8,7 +8,7 @@ class Child {
         this.badgesEarned = [];  // List of Badge objects
     }
 
-    // Method to add a BookLog entry
+    // add a BookLog entry
     addBooklog(log) {
         if (log instanceof BookLog) {
             this.bookLogs.push(log);
@@ -18,12 +18,12 @@ class Child {
         }
     }
 
-    // Method to view reading pathway
+    // view reading pathway
     viewPathway() {
         return new Pathway(this.bookLogs);
     }
 
-    // Method to add a badge earned from a challenge
+    // add a badge earned from a challenge
     addBadge(challenge) {
         if (challenge instanceof Challenge) {
             this.badgesEarned.push(new Badge(challenge.name, challenge.description));

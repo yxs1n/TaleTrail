@@ -1,25 +1,36 @@
 class Child {
-    constructor(name, age) {
+    constructor(id, name) {
+        this.id = id;
         this.name = name;
-        this.age = age;
-        this.booksRead = JSON.parse(localStorage.getItem(`${this.name}_books`)) || [];
+        this.parents = [];  // List of Parent objects
+        this.currentBooks = [];  // List of Book objects
+        this.bookLogs = [];  // List of BookLog objects
+        this.badgesEarned = [];  // List of Badge objects
     }
 
-    logBook(bookTitle) {
-        this.booksRead.push(bookTitle);
-        localStorage.setItem(`${this.name}_books`, JSON.stringify(this.booksRead));
-        console.log(`${this.name} has logged a new book: ${bookTitle}`);
+    // Method to add a BookLog entry
+    addBooklog(log) {
+        if (log instanceof BookLog) {
+            this.bookLogs.push(log);
+            console.log(`Book log added for ${this.name}: ${log.bookTitle}`);
+        } else {
+            console.error("Invalid BookLog object.");
+        }
     }
 
-    viewProgress() {
-        console.log(`${this.name} has read ${this.booksRead.length} books.`);
-        return this.booksRead;
+    // Method to view reading pathway
+    viewPathway() {
+        return new Pathway(this.bookLogs);
     }
 
-    clearProgress() {
-        this.booksRead = [];
-        localStorage.removeItem(`${this.name}_books`);
-        console.log(`${this.name}'s reading progress has been reset.`);
+    // Method to add a badge earned from a challenge
+    addBadge(challenge) {
+        if (challenge instanceof Challenge) {
+            this.badgesEarned.push(new Badge(challenge.name, challenge.description));
+            console.log(`Badge earned for ${this.name}: ${challenge.name}`);
+        } else {
+            console.error("Invalid Challenge object.");
+        }
     }
 }
 

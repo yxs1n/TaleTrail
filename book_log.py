@@ -13,5 +13,5 @@ class BookLog:
         self.totalPagesRead += self.pagesRead
         return self.totalPagesRead
 
-    def triggerInteraction(self):
-        
+    #def triggerInteraction(self):
+    

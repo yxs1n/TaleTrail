@@ -165,7 +165,7 @@ opacity: 90%;
     width: 30px; 
 }
 
-#roadmap-button, #add-log-button{
+#roadmap-button, #add-log-button, #logHistoryButton{
     background-color: #27A4D9; 
     font-size: 20px;
     border-radius: 1rem ;

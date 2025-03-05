@@ -22,9 +22,13 @@ function closeRoadmap(){
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
+    const popupForm = document.getElementById('popup-form');
+    const detailsPopup = document.getElementById('detailsPopup');
+    const selectedBookTitle = document.getElementById('selected-book-title');
     
     window.searchBooks = async () => {
         const query = searchBox.value.trim();
+        // Construct the API URL with the encoded search query parameter to avoid special character issues
         const apiUrl = `http://127.0.0.1:5000/api/record?title=${encodeURIComponent(query)}`;
         
         try {
@@ -32,6 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             resultsDiv.innerHTML = '';
 
+            // Displays results beneath search bar
             if(data.length > 0) {
                 data.forEach(record => {
                     const [title, image, author, pages, genre, band] = record;
@@ -44,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Genre: ${genre}</p>
                     <p>Band: ${band}</p>`;
                     recordElement.addEventListener('click', () => {
-
+                        openDetailsPopup(title);
                     });
                     resultsDiv.appendChild(recordElement);
                 });
@@ -56,4 +61,27 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error('Error fetching data:', error);
         }
     };
+
+    // Function to open the book details popup
+    function openDetailsPopup(bookTitle) {
+        selectedBookTitle.textContent = bookTitle;
+        detailsPopup.style.display = 'flex';
+    }
+
+    // Function to close the book details popup 
+    window.closeDetailsPopup = function() {
+        detailsPopup.style.display = 'none';
+    }
+
+    // Function to save book log details
+    window.saveLog = function() {
+        const pagesRead = document.getElementById('pages-read').value;
+        const timeSpent = document.getElementById('time-spent').value;
+        const bookTitle = selectedBookTitle.textContent;
+
+        console.log(`Book: ${bookTitle}, Pages Read: ${pagesRead}, Time Spent: ${timeSpent}`);
+
+        closeDetailsPopup();
+        closeAddLog();
+    }
 });

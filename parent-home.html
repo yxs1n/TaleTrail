@@ -52,5 +52,22 @@
             <div id="results"></div>
             </form>
          </div>
+         <!-- Enter book details popup -->
+          <div class="log-popup" id="detailsPopup" style="display: none;">
+            <div class="popup-container">
+                <button type="button" class="close-button" onclick="closeDetailsPopup()">X</button>
+                <h1 id="selected-book-title">Selected Book</h1>
+                <form id="details-form">
+                    <label for="pages-read">Pages Read:</label>
+                    <input type="number" id="pages-read" name="pages-read" required><br>
+
+                    <label for="time-spent">Time Spent (minutes):</label>
+                    <input type="number" id="time-spent" name="time-spent" required><br>
+
+                    <button type="button" onclick="saveLog()">Save</button>
+                    <button type="button" onclick="closeDetailsPopup()">Cancel</button>
+                </form>
+            </div>
+          </div>
 </body>
 </html>

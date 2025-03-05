@@ -125,7 +125,8 @@ opacity: 90%;
     background-color: #C60000;
     color: white;
     font-weight: bold;
-    width: 30px; 
+    width: 30px;
+    cursor: pointer; 
 }
 
 .log-popup .cancel-button:hover, .log-popup .search-button:hover{

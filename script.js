@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', () => {
         Tim.currentBooks.push(book);
         Tim.bookLogs.push(bookLog);
 
+        console.log(Tim.bookLogs.length);
         console.log("Current books: " + Tim.currentBooks[0].title +
             "\nBooklog:\nBook: " +  Tim.bookLogs[0].book +
             ", Pages Read: " + Tim.bookLogs[0].pagesRead +

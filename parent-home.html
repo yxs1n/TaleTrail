@@ -71,6 +71,17 @@
           <button id="logHistoryButton" onclick="openLogHistory()">Log History
             <img src="images/history.png" alt="History" style="height: 80px;">
           </button>
-    </div>
-</body>
+          <!-- Book Log History Popup -->
+           <div class="log-popup" id="historyPopup" style="display: none;">
+            <div class="popup-container">
+                <button type="button" class="close-button" onclick="closeHistoryPopup()">X</button>
+                <h1>Book Log History</h1>
+                <div id="history-content">
+                    <!-- This will be filled dynamically with log entries -->
+                    </div>
+                    <button type="button" onclick="closeHistoryPopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>

@@ -15,8 +15,6 @@ window.closeAddLog = function(){
     document.getElementById("myPopup").style.display = "none";
 }
 
-window.closeAddLog = closeAddLog;
-
 /* Roadmap Popup */
 
 window.openRoadmap = function(){
@@ -27,7 +25,47 @@ window.closeRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "none";
 }
 
-/* Search functionality */
+// Function to display book logs dynamically
+window.displayBookLogs = function(bookLogs) {
+    const historyContent = document.getElementById("history-content");
+    historyContent.innerHTML = ""; // Clear existing logs
+
+    bookLogs.forEach(log => {
+        const logEntry = document.createElement("div");
+        logEntry.classList.add("log-entry");
+
+        const bookTitle = document.createElement("h2");
+        bookTitle.textContent = `Book: ${log.book}`;
+        logEntry.appendChild(bookTitle);
+
+        const pagesRead = document.createElement("p");
+        pagesRead.textContent = `Pages Read: ${log.pagesRead}`;
+        logEntry.appendChild(pagesRead);
+
+        const timeSpent = document.createElement("p");
+        timeSpent.textContent = `Time Spent: ${log.timeSpent} minutes`;
+        logEntry.appendChild(timeSpent);
+
+        const dateAdded = document.createElement("p");
+        dateAdded.textContent = `Date Added: ${log.dateAdded.toISOString().split('T')[0]}`;
+        logEntry.appendChild(dateAdded);
+
+        historyContent.appendChild(logEntry);
+    });
+};
+
+// Modify the openLogHistory function to use the Child instance's book logs
+window.openLogHistory = function() {
+    displayBookLogs(Tim.bookLogs);
+    document.getElementById("historyPopup").style.display = "block";
+};
+
+// Function to close the history popup
+window.closeHistoryPopup = function() {
+    document.getElementById("historyPopup").style.display = "none";
+}
+
+/* Add log functionality */
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');

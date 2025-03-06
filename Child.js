@@ -1,6 +1,5 @@
 class Child {
-    constructor(id, name) {
-        this.id = id;
+    constructor(name) {
         this.name = name;
         this.parents = [];  // List of Parent objects
         this.currentBooks = [];  // List of Book objects
@@ -34,7 +33,4 @@ class Child {
     }
 }
 
-// Export for use in other files (if using modules)
-if (typeof module !== "undefined") {
-    module.exports = Child;
-}
+export default Child;

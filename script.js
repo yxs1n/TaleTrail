@@ -1,20 +1,29 @@
+import Child from "./Child.js";
+import Book from "./Book.js";
+import BookLog from "./BookLog.js";
+// Temporary child
+const Tim = new Child("Tim");
+
 /* Log Popup */
 
-function openAddLog(){
+//Using window to ensure that the function is accessible in the global scope
+window.openAddLog = function() {
     document.getElementById("myPopup").style.display = "block";
 }
 
-function closeAddLog(){
+window.closeAddLog = function(){
     document.getElementById("myPopup").style.display = "none";
 }
 
+window.closeAddLog = closeAddLog;
+
 /* Roadmap Popup */
 
-function openRoadmap(){
+window.openRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "block";
 }
 
-function closeRoadmap(){
+window.closeRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "none";
 }
 
@@ -25,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const popupForm = document.getElementById('popup-form');
     const detailsPopup = document.getElementById('detailsPopup');
     const selectedBookTitle = document.getElementById('selected-book-title');
+    let selectedBookData = {};
     
     window.searchBooks = async () => {
         const query = searchBox.value.trim();
@@ -49,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Genre: ${genre}</p>
                     <p>Band: ${band}</p>`;
                     recordElement.addEventListener('click', () => {
-                        openDetailsPopup(title);
+                        openDetailsPopup(title, {author, pages, genre, band});
                     });
                     resultsDiv.appendChild(recordElement);
                 });
@@ -63,8 +73,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Function to open the book details popup
-    function openDetailsPopup(bookTitle) {
+    window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
+        selectedBookData = bookData;
         detailsPopup.style.display = 'flex';
     }
 
@@ -78,8 +89,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const pagesRead = document.getElementById('pages-read').value;
         const timeSpent = document.getElementById('time-spent').value;
         const bookTitle = selectedBookTitle.textContent;
+        const {author, pages, genre, band} = selectedBookData;
 
-        console.log(`Book: ${bookTitle}, Pages Read: ${pagesRead}, Time Spent: ${timeSpent}`);
+        const book = new Book(bookTitle, null, author, pages, genre, band);
+        const bookLog = new BookLog(book, pagesRead, timeSpent);
+        Tim.currentBooks.push(book);
+        Tim.bookLogs.push(bookLog);
+
+        console.log("Current books: " + Tim.currentBooks[0].title +
+            "\nBooklog:\nBook: " +  Tim.bookLogs[0].book +
+            ", Pages Read: " + Tim.bookLogs[0].pagesRead +
+            ", Time Spent: " + Tim.bookLogs[0].timeSpent + 
+            ", Date Added: " + Tim.bookLogs[0].dateAdded);
 
         closeDetailsPopup();
         closeAddLog();

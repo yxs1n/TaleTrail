@@ -12,7 +12,7 @@
     <header>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
  <div id="shape">
-        <p> Welcome back, #####!</p>
+        <p> Welcome back, {ParentName}!</p>
     </div>
         <nav>
             <ul class="navbar">
@@ -20,26 +20,25 @@
 
                 <li><button><a href="switchprofile.html"><img src="images/switchprofile.png" alt="" class="icon">Switch Profile</a></button></li>
 
-                <li><button class="nav-butt"><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
+                <li><button><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
             </ul>
         </nav>
     </header>
-    
+    <div class="ph-button-container">
         <!-- Roadmap Popup -->
-        <button id="roadmap-button" onclick="openRoadmap()">
-                <img src="images/roadmap.png" alt="" style="height: 80px;"> View Roadmap 
+        <button id="roadmap-button" onclick="openRoadmap()">View Roadmap
+                <img src="images/roadmap.png" alt="" style="height: 80px;"> 
             </a>
         </button>
         <div class="popup-container" id="roadmap-popup">
             <button type="button" class="close-button" onclick="closeRoadmap()"> X </button>
             <h1>Your child's roadmap </h1>
-            <p>Here is the roadmap for your child's TaleTrail journey. </p>
-            <p>Click on the milestones to view more details.</p>
+            <p>Here is the roadmap for your child's TaleTrail journey.</p>
           </div>
         
   
         <button id = "add-log-button" onclick="openAddLog()">
-           Add Log        
+           Add Log    <img src="images/booklog.png" alt="booklog" style="height: 80px;">  
         </button>
         <!-- Add log popup-->
          <div class="log-popup" id="myPopup">
@@ -69,6 +68,9 @@
                 </form>
             </div>
           </div>
-          <button id="logHistoryButton" onclick="openLogHistory()">Log History</button>
+          <button id="logHistoryButton" onclick="openLogHistory()">Log History
+            <img src="images/history.png" alt="History" style="height: 80px;">
+          </button>
+    </div>
 </body>
 </html>

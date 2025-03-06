@@ -1,21 +1,22 @@
+import BookLog from './BookLog.js';
+
 class Pathway {
     constructor(bookLogs) {
-
-        this.bookLogs = bookLogs
-        this.processedData = this.processData()
+        this.bookLogs = bookLogs;
+        this.processedData = this.processData();
     }
 
     processData() {
-        let cumulativePages = 0
-        let cumulativeTime = 0
+        let cumulativePages = 0;
+        let cumulativeTime = 0;
         let labels = [];
-        let pagesReadData = []
-        let timeSpentData = []
+        let pagesReadData = [];
+        let timeSpentData = [];
 
         this.bookLogs.forEach(log => {
             cumulativePages += log.pagesRead;
-            cumulativeTime += log.totalPagesRead; 
-            labels.push(log.dateAdded.toISOString().split('T')[0]); 
+            cumulativeTime += log.timeSpent;
+            labels.push(log.dateAdded.toISOString().split('T')[0]);
             pagesReadData.push(cumulativePages);
             timeSpentData.push(cumulativeTime);
         });
@@ -42,19 +43,8 @@ class Pathway {
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Pages Read'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    }
+                    y: { beginAtZero: true },
+                    x: { title: { display: true, text: 'Date' } }
                 }
             }
         });
@@ -75,38 +65,31 @@ class Pathway {
             },
             options: {
                 scales: {
-                    y: {
-                        beginAtZero: true,
-                        title: {
-                            display: true,
-                            text: 'Total Time Spent (minutes)'
-                        }
-                    },
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date'
-                        }
-                    }
+                    y: { beginAtZero: true },
+                    x: { title: { display: true, text: 'Date' } }
                 }
             }
         });
     }
 }
 
-// Some sample data
+// Sample data
 document.addEventListener('DOMContentLoaded', () => {
     const bookLogs = [
-        new BookLog(1, "Book A", 30, 30, new Date("2025-02-25")),
-        new BookLog(2, "Book B", 25, 55, new Date("2025-02-26")),
-        new BookLog(3, "Book C", 40, 95, new Date("2025-02-27")),
-        new BookLog(4, "Book D", 15, 110, new Date("2025-02-28")),
-        new BookLog(5, "Book E", 35, 145, new Date("2025-02-29")),
-        new BookLog(6, "Book F", 20, 165, new Date("2025-03-01")),
+        new BookLog({ title: "Book A" }, 30, 30, new Date("2025-02-25")),
+        new BookLog({ title: "Book B" }, 25, 55, new Date("2025-02-26")),
+        new BookLog({ title: "Book C" }, 40, 95, new Date("2025-02-27")),
+        new BookLog({ title: "Book D" }, 15, 110, new Date("2025-02-28")),
+        new BookLog({ title: "Book E" }, 35, 145, new Date("2025-02-29")),
+        new BookLog({ title: "Book F" }, 20, 165, new Date("2025-03-01"))
     ];
 
-    const pathway = new Pathway(bookLogs)
+    const pathway = new Pathway(bookLogs);
 
-
-    pathway.renderCharts()
+    // Open roadmap button event
+    document.getElementById('roadmap-button').addEventListener('click', () => {
+        openRoadmap();
+        pathway.renderCharts(); // Render charts when the popup opens
+    });
 });
+

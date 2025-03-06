@@ -1,22 +1,21 @@
 class Pathway {
     constructor(bookLogs) {
-        this.bookLogs = bookLogs;
-        this.processedData = this.processData();
+
+        this.bookLogs = bookLogs
+        this.processedData = this.processData()
     }
 
-    // Process book logs to get cumulative data for plotting
     processData() {
-        let cumulativePages = 0;
-        let cumulativeTime = 0;
+        let cumulativePages = 0
+        let cumulativeTime = 0
         let labels = [];
-        let pagesReadData = [];
-        let timeSpentData = [];
+        let pagesReadData = []
+        let timeSpentData = []
 
         this.bookLogs.forEach(log => {
             cumulativePages += log.pagesRead;
-            cumulativeTime += log.totalPagesRead; // Assuming totalPagesRead tracks time spent
-
-            labels.push(log.dateAdded.toISOString().split('T')[0]); // Format date as YYYY-MM-DD
+            cumulativeTime += log.totalPagesRead; 
+            labels.push(log.dateAdded.toISOString().split('T')[0]); 
             pagesReadData.push(cumulativePages);
             timeSpentData.push(cumulativeTime);
         });
@@ -24,7 +23,6 @@ class Pathway {
         return { labels, pagesReadData, timeSpentData };
     }
 
-    // Render charts using Chart.js
     renderCharts() {
         const { labels, pagesReadData, timeSpentData } = this.processedData;
 
@@ -96,18 +94,19 @@ class Pathway {
     }
 }
 
-// Example Usage
+// Some sample data
 document.addEventListener('DOMContentLoaded', () => {
-    // Sample bookLogs array (Replace with actual data)
     const bookLogs = [
-        new BookLog(1, "Book A", 30, 30, new Date("2024-02-25")),
-        new BookLog(2, "Book B", 25, 55, new Date("2024-02-26")),
-        new BookLog(3, "Book C", 40, 95, new Date("2024-02-27")),
-        new BookLog(4, "Book D", 15, 110, new Date("2024-02-28")),
-        new BookLog(5, "Book E", 35, 145, new Date("2024-02-29")),
-        new BookLog(6, "Book F", 20, 165, new Date("2024-03-01")),
+        new BookLog(1, "Book A", 30, 30, new Date("2025-02-25")),
+        new BookLog(2, "Book B", 25, 55, new Date("2025-02-26")),
+        new BookLog(3, "Book C", 40, 95, new Date("2025-02-27")),
+        new BookLog(4, "Book D", 15, 110, new Date("2025-02-28")),
+        new BookLog(5, "Book E", 35, 145, new Date("2025-02-29")),
+        new BookLog(6, "Book F", 20, 165, new Date("2025-03-01")),
     ];
 
-    const pathway = new Pathway(bookLogs);
-    pathway.renderCharts();
+    const pathway = new Pathway(bookLogs)
+
+
+    pathway.renderCharts()
 });

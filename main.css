@@ -289,6 +289,94 @@ header button a, header button p{
     cursor: pointer; 
 }
 
+
+/* Graph Container Styling */
+.graph-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+    max-width: 100%;
+}
+.graph-container div {
+    flex: 1; 
+    max-width: 45%; 
+}
+
+/* Graph Styling */
+canvas {
+    width: 600px !important;
+    height: 400px !important;
+    max-width: 100%; 
+    margin-left: 50px;
+    background-color: #f9f9f9; 
+    border: 2px solid #27A4D9;
+    border-radius: 10px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Graph Heading Styling */
+h2 {
+    color: #000000;
+    font-size: 24px; 
+    margin-bottom: 10px; 
+    text-align: center; 
+}
+.roadmap-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    padding: 20px;
+    background-color: white;
+    border: 5px solid #C60000;
+    border-radius: 1rem;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.roadmap-popup .close-button {
+    border-radius: 1rem;
+    background-color: #C60000;
+    color: white;
+    font-weight: bold;
+    width: 50px;
+    height: 30px;
+    cursor: pointer;
+}
+
+/* For the chart container, the flexbox is used to arrange the two charts side by side */
+.roadmap-popup .graph-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.roadmap-popup .graph-container div {
+    flex: 1;
+    max-width: 45%;
+}
+
+/* Canvas styling for the charts */
+.roadmap-popup canvas {
+    width: 100% !important;
+    height: 100% !important;
+    background-color: #f9f9f9;
+    border: 2px solid #27A4D9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading for charts */
+.roadmap-popup h2 {
+    color: #000000;
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-align: center;
+
 /* Styling for the history content area */
 .history-content {
     max-height: 400px;
@@ -321,4 +409,5 @@ header button a, header button p{
     margin: 5px 0;
     font-size: 14px;
     color: #666;
+
 }

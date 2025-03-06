@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="images/taletraillogo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="pathway.js"></script> 
     <script type="module" src="script.js"></script>
     <title> Home - TaleTrail</title>
 </head>
@@ -25,16 +27,27 @@
         </nav>
     </header>
     <div class="ph-button-container">
-        <!-- Roadmap Popup -->
-        <button id="roadmap-button" onclick="openRoadmap()">View Roadmap
+            <!-- Roadmap Popup -->
+            <button id="roadmap-button" onclick="openRoadmap()">View Roadmap
                 <img src="images/roadmap.png" alt="" style="height: 80px;"> 
-            </a>
-        </button>
-        <div class="popup-container" id="roadmap-popup">
-            <button type="button" class="close-button" onclick="closeRoadmap()"> X </button>
-            <h1>Your child's roadmap </h1>
-            <p>Here is the roadmap for your child's TaleTrail journey.</p>
-          </div>
+            </button>
+
+            <!-- Roadmap Popup container -->
+            <div class="roadmap-popup" id="roadmap-popup">
+                <button type="button" class="close-button" onclick="closeRoadmap()"> X </button>
+                <h1>Your child's roadmap</h1>
+                <p>Here is the roadmap for your child's TaleTrail journey.</p>
+                <div class="graph-container">
+                    <div>
+                        <h2>Pages Read This Week</h2>
+                        <canvas id="pagesReadChart"></canvas>
+                    </div>
+                    <div>
+                        <h2>Time Spent Reading This Week</h2>
+                        <canvas id="timeSpentChart"></canvas>
+                    </div>
+                </div>
+            </div>
         
   
         <button id = "add-log-button" onclick="openAddLog()">

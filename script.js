@@ -144,4 +144,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeDetailsPopup();
         closeAddLog();
     }
+
+   
 });

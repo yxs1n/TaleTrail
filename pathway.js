@@ -14,13 +14,13 @@ class Pathway {
         let timeSpentData = [];
 
         this.bookLogs.forEach(log => {
-            cumulativePages += log.pagesRead;
-            cumulativeTime += log.timeSpent;
+            cumulativePages += parseInt(log.pagesRead);
+            cumulativeTime += parseInt(log.timeSpent);
             labels.push(log.dateAdded.toISOString().split('T')[0]);
             pagesReadData.push(cumulativePages);
             timeSpentData.push(cumulativeTime);
         });
-
+        
         return { labels, pagesReadData, timeSpentData };
     }
 
@@ -73,6 +73,8 @@ class Pathway {
     }
 }
 
+export default Pathway;
+
 // Sample data
 document.addEventListener('DOMContentLoaded', () => {
     const bookLogs = [
@@ -84,12 +86,12 @@ document.addEventListener('DOMContentLoaded', () => {
         new BookLog({ title: "Book F" }, 20, 165, new Date("2025-03-01"))
     ];
 
-    const pathway = new Pathway(bookLogs);
+    // const pathway = new Pathway(bookLogs);
 
     // Open roadmap button event
-    document.getElementById('roadmap-button').addEventListener('click', () => {
-        openRoadmap();
-        pathway.renderCharts(); // Render charts when the popup opens
-    });
+    // document.getElementById('roadmap-button').addEventListener('click', () => {
+    //     openRoadmap();
+    //     pathway.renderCharts(); // Render charts when the popup opens
+    // });
 });
 

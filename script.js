@@ -1,6 +1,7 @@
 import Child from "./Child.js";
 import Book from "./Book.js";
 import BookLog from "./BookLog.js";
+import Pathway from "./pathway.js";
 // Temporary child
 const Tim = new Child("Tim");
 
@@ -9,6 +10,8 @@ const Tim = new Child("Tim");
 //Using window to ensure that the function is accessible in the global scope
 window.openAddLog = function() {
     document.getElementById("myPopup").style.display = "block";
+    document.getElementById('search-input').value = '';
+    document.getElementById('results').innerHTML = '';
 }
 
 window.closeAddLog = function(){
@@ -19,6 +22,8 @@ window.closeAddLog = function(){
 
 window.openRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "block";
+    const pathway = new Pathway(Tim.bookLogs);
+    pathway.renderCharts();
 }
 
 window.closeRoadmap = function(){
@@ -97,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Genre: ${genre}</p>
                     <p>Band: ${band}</p>`;
                     recordElement.addEventListener('click', () => {
-                        openDetailsPopup(title, {author, pages, genre, band});
+                        window.openDetailsPopup(title, {author, pages, genre, band});
                     });
                     resultsDiv.appendChild(recordElement);
                 });
@@ -133,13 +138,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const bookLog = new BookLog(book, pagesRead, timeSpent);
         Tim.currentBooks.push(book);
         Tim.bookLogs.push(bookLog);
-
-        console.log(Tim.bookLogs.length);
-        console.log("Current books: " + Tim.currentBooks[0].title +
-            "\nBooklog:\nBook: " +  Tim.bookLogs[0].book +
-            ", Pages Read: " + Tim.bookLogs[0].pagesRead +
-            ", Time Spent: " + Tim.bookLogs[0].timeSpent + 
-            ", Date Added: " + Tim.bookLogs[0].dateAdded);
 
         closeDetailsPopup();
         closeAddLog();

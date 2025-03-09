@@ -12,28 +12,50 @@
     <header>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
  <div id="shape">
-        <p> Welcome back, #####!</p>
+        <p> Welcome back, {ChildName}!</p>
     </div>
         <nav>
             <ul class="navbar">
                 <li><a href="children-home.html"><img src="images/taletraillogo.png" alt="Logo/Home" class="logo"></a></li>
 
-                <li><button><a href="switchprofile.html"><img src="images/switchprofile.png" alt="" class="icon">Switch Profile</a></button></li>
+                <li><button><a href="profile.html"><img src="images/switchprofile.png" alt="" class="icon">Switch Profile</a></button></li>
 
-                <li><button class="nav-butt"><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
+                <li><button><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
             </ul>
         </nav>
     </header>
+
 <!-- This is the main content of the page. -->
-    <div id="home-content">
-        <button><a href="roadmap.html"><img src="images/roadmap.png" alt="" style="height: 80px;"> View Roadmap </a></button>
-        <div id="shape">
-            <p>DAILY READING STREAK ### </p>
+    <div id="children-home-content">
+    <section id="left-content">
+        <div id="my-books">
+            <p> My Books</p>
+            <img src="images/shelves.png" alt="Bookshelf" id="bookshelf">
         </div>
-        <div id="shape">
-        <p> Current Book</p>
-        </div>
+        
+    </section>
+    <section id="middle-content">
+    <div id="daily-streak">
+            <p>DAILY READING STREAK <br> ### </p>
     </div>
-    div
+    <div id="current-book-container">
+        <p> CURRENT BOOK</p>
+        <br>
+        <img src="images/book.png" alt="Book" id="current-book">
+        <p> Title: </p>
+    </div>
+    </section>
+    <section>
+        <button id="roadmap-button" onclick="openRoadmap()">
+            <img src="images/roadmap.png" alt="" style="height: 80px;"> View Roadmap 
+            </a>
+        </button>
+        <div class="popup-container" id="roadmap-popup">
+            <button type="button" class="close-button" onclick="closeRoadmap()"> X </button>
+            <h1>Your roadmap </h1>
+            <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
+        </div>
+    </section>
+</div>
 </body>
 </html>

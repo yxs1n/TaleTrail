@@ -1,30 +1,83 @@
+import Child from "./Child.js";
+import Book from "./Book.js";
+import BookLog from "./BookLog.js";
+import Pathway from "./pathway.js";
+// Temporary child
+const Tim = new Child("Tim");
+
 /* Log Popup */
 
-function openAddLog(){
+//Using window to ensure that the function is accessible in the global scope
+window.openAddLog = function() {
     document.getElementById("myPopup").style.display = "block";
+    document.getElementById('search-input').value = '';
+    document.getElementById('results').innerHTML = '';
 }
 
-function closeAddLog(){
+window.closeAddLog = function(){
     document.getElementById("myPopup").style.display = "none";
 }
 
 /* Roadmap Popup */
 
-function openRoadmap(){
+window.openRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "block";
+    const pathway = new Pathway(Tim.bookLogs);
+    pathway.renderCharts();
 }
 
-function closeRoadmap(){
+window.closeRoadmap = function(){
     document.getElementById("roadmap-popup").style.display = "none";
 }
 
-/* Search functionality */
+// Function to display book logs dynamically
+window.displayBookLogs = function(bookLogs) {
+    const historyContent = document.getElementById("history-content");
+    historyContent.innerHTML = ""; // Clear existing logs
+
+    bookLogs.forEach(log => {
+        const logEntry = document.createElement("div");
+        logEntry.classList.add("log-entry");
+
+        const bookTitle = document.createElement("h2");
+        bookTitle.textContent = `Book: ${log.book}`;
+        logEntry.appendChild(bookTitle);
+
+        const pagesRead = document.createElement("p");
+        pagesRead.textContent = `Pages Read: ${log.pagesRead}`;
+        logEntry.appendChild(pagesRead);
+
+        const timeSpent = document.createElement("p");
+        timeSpent.textContent = `Time Spent: ${log.timeSpent} minutes`;
+        logEntry.appendChild(timeSpent);
+
+        const dateAdded = document.createElement("p");
+        dateAdded.textContent = `Date Added: ${log.dateAdded.toISOString().split('T')[0]}`;
+        logEntry.appendChild(dateAdded);
+
+        historyContent.appendChild(logEntry);
+    });
+};
+
+// Modify the openLogHistory function to use the Child instance's book logs
+window.openLogHistory = function() {
+    displayBookLogs(Tim.bookLogs);
+    document.getElementById("historyPopup").style.display = "block";
+};
+
+// Function to close the history popup
+window.closeHistoryPopup = function() {
+    document.getElementById("historyPopup").style.display = "none";
+}
+
+/* Add log functionality */
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
     const popupForm = document.getElementById('popup-form');
     const detailsPopup = document.getElementById('detailsPopup');
     const selectedBookTitle = document.getElementById('selected-book-title');
+    let selectedBookData = {};
     
     window.searchBooks = async () => {
         const query = searchBox.value.trim();
@@ -49,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Genre: ${genre}</p>
                     <p>Band: ${band}</p>`;
                     recordElement.addEventListener('click', () => {
-                        openDetailsPopup(title);
+                        window.openDetailsPopup(title, {author, pages, genre, band});
                     });
                     resultsDiv.appendChild(recordElement);
                 });
@@ -63,8 +116,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Function to open the book details popup
-    function openDetailsPopup(bookTitle) {
+    window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
+        selectedBookData = bookData;
         detailsPopup.style.display = 'flex';
     }
 
@@ -78,10 +132,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const pagesRead = document.getElementById('pages-read').value;
         const timeSpent = document.getElementById('time-spent').value;
         const bookTitle = selectedBookTitle.textContent;
+        const {author, pages, genre, band} = selectedBookData;
 
-        console.log(`Book: ${bookTitle}, Pages Read: ${pagesRead}, Time Spent: ${timeSpent}`);
+        const book = new Book(bookTitle, null, author, pages, genre, band);
+        const bookLog = new BookLog(book, pagesRead, timeSpent);
+        Tim.currentBooks.push(book);
+        Tim.bookLogs.push(bookLog);
 
         closeDetailsPopup();
         closeAddLog();
     }
+
+   
 });

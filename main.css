@@ -31,19 +31,46 @@
     padding: 0 50px;
 }
 
+#welcome__msg {
+    color: white;
+    font-size: 1.5rem;
+    text-align: center;
+    align-self: center;
+    padding-right: 0%;
+    border-radius: 0.5rem;
+    padding: 10px 15px;
+}
+
+#welcome__msg:hover {
+    background: #53d5fd;
+    transition: all 0.5s ease;
+    color: black;
+}
+
 #navbar__logo {
-    background-color: #f20041;
-    background-image: linear-gradient(to top, #ff3049 0%, #f20041 100%);
-    background-size: 100%;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-    display: flex;
-    align-items: center;
+    background-color: #53d5fd;
+    color: #C60000;
+    border-radius: 1rem;
+    justify-self: flex-start;
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
+    display: flex;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 80px;
+    }
+
+#navbar__icon {
+    padding-right: 5px;
+    color: white;
+    font-size: 2rem;
+}
+
+.navbar__links #navbar__icon:hover {
+    color: #C60000;
 }
 
 .fa-user {
@@ -73,12 +100,14 @@
     outline: none;
     border-radius: 4px;
     color: #fff;
+    font-size: 1.2rem;
 
 }
 
 .navbar__links:hover {
-    background: #f20041;
-    transition: all 0.3s ease;
+    background: #53d5fd;
+    transition: all 0.5s ease;
+    color: black;
 }
 
 .navbar__btn {
@@ -109,6 +138,101 @@
     transition: all 0.3s ease;
 }
 
+@media screen and (max-width: 960px) {
+    .navbar__container {
+        display: flex;
+        justify-content: space-between;
+        height: 80px;
+        z-index: 1;
+        width: 100%;
+        max-width: 1300px;
+        padding: 0;
+    }
+
+    .navbar__menu {
+        display: grid;
+        grid-template-columns: auto;
+        margin: 0;
+        width: 100%;
+        position: absolute;
+        top: -1000px;
+        opacity: 0;
+        transition: all 0.5s ease;
+        height: 30vh;
+        z-index: -1;
+    }
+
+    .navbar__menu.active {
+        background: #131313;
+        top: 100%;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 99;
+        height: 40vh;
+        font-size: 1.6rem;
+    }
+
+    #navbar__logo {
+        padding-left: 25px;
+    }
+
+    .navbar__toggle .bar {
+        width: 25px;
+        height: 3px;
+        margin: 5px auto;
+        transition: all 0.3s ease-in-out;
+        background: #fff;
+    }
+
+    .navbar__item {
+        width: 100%;
+    }
+
+    .navbar__links {
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
+    }
+
+    #mobile-menu {
+        position: absolute;
+        top: 20%;
+        right: 5%;
+        transform: translate(5%, 20%);
+    }
+
+    .navbar__btn {
+        padding-bottom: 2rem;
+    }
+
+    .button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        height: 80px;
+        margin: 0;
+    }
+
+    .navbar__toggle .bar {
+        display: block;
+        cursor: pointer;
+    }
+
+    #mobile-menu.is-active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    #mobile-menu.is-active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    } 
+
+    #mobile-menu.is-active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
 
 /* Children Landing Page Styling */
 
@@ -117,6 +241,8 @@
     justify-content: space-between;
     align-items: flex-start;
     width: 100%;
+    height: 93vh;
+    background-color: #454545;
 }
 
 #right-content {
@@ -248,7 +374,8 @@
     flex-direction: column;
     align-items: center;
     gap: 20px;
-    margin-top: 50px;
+    background-color: #454545;
+    height: 93vh;
 }
 #roadmap-button, #add-log-button, #logHistoryButton{
     display: flex;

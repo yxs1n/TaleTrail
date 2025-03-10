@@ -98,7 +98,6 @@ window.closeHistoryPopup = function() {
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
-    const popupForm = document.getElementById('popup-form');
     const selectedBookTitle = document.getElementById('selected-book-title');
     let selectedBookData = {};
     

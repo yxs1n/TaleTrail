@@ -11,21 +11,32 @@
     <title> Home - TaleTrail</title>
 </head>
 <body>
-    <header>
-<!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
- <div id="shape">
-        <p> Welcome back, {ParentName}!</p>
-    </div>
-        <nav>
-            <ul class="navbar">
-                <li><a href="parent-home.html"><img src="images/taletraillogo.png" alt="Logo/Home" class="logo"></a></li>
-
-                <li><button><a href="switchprofile.html"><img src="images/switchprofile.png" alt="" class="icon">Switch Profile</a></button></li>
-
-                <li><button><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
+    <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <p id="welcome__msg">Welcome back, {ParentName}!</p>
+            <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar__logo">
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                <li class="navbar__item">
+                    <a href="profile.html" class="navbar__links">
+                        <ion-icon name="people-outline" id="navbar__icon"></ion-icon>
+                        Switch Profile
+                    </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="index.html" class="navbar__links">
+                        <ion-icon name="exit-outline"id="navbar__icon"></ion-icon>
+                        Log Out
+                    </a>
+                </li>
             </ul>
-        </nav>
-    </header>
+        </div>
+    </nav>
     <div class="ph-button-container">
             <!-- Roadmap Popup -->
             <button id="roadmap-button" onclick="openRoadmap()">View Roadmap
@@ -118,6 +129,8 @@
                 <button type="button" onclick="closeHistoryPopup()">Close</button>
             </div>
         </div>
-    </div>
-    </body>
+  </div>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  </body>
 </html>

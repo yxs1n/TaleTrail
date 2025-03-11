@@ -31,8 +31,3 @@ class Challenge {
         return this.participants[child.id] !== undefined ? this.participants[child.id] : `${child.name} is not found in this challenge.`;
     }
 }
-
-// Export for use in other files
-if (typeof module !== "undefined") {
-    module.exports = Challenge;
-}

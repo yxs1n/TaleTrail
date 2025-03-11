@@ -26,9 +26,47 @@
     function closeChallenges() {
         document.getElementById("challenge-popup").style.display = "none";
     }
+
+    /* Open and Close Badge Popup */
+    function openBadgePopup() {
+        document.getElementById("badge-popup").style.display = "flex";
+        renderBadges(earnedBadges, "badge-container");
+    }
     
-    /* Search functionality */
+    function closeBadgePopup() {
+        document.getElementById("badge-popup").style.display = "none";
+    }
+
+
+    /* Function to Display Earned Badges */
+    function renderBadges(badges, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        badges.forEach(badge => {
+            const badgeElement = document.createElement("div");
+            badgeElement.classList.add("badge");
+            badgeElement.innerHTML = `
+                <img src="${badge.imageUrl}" alt="${badge.name} Badge">
+                <p>${badge.name}</p>
+            `;
+            container.appendChild(badgeElement);
+        });
+    }
+
+   /* Mock Data: Replace with backend data */
+    const earnedBadges = [
+        { name: "Beginner Reader", imageUrl: "images/beginner-badge.png" },
+        { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
+        { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
+    ];
+
     document.addEventListener('DOMContentLoaded', () => {
+        
+         const welcomeMessage = document.getElementById("welcome-message");
+        if (welcomeMessage) {
+            welcomeMessage.addEventListener("click", openBadgePopup);
+        }
+        
         const challengeButton = document.getElementById("challenge-button");
         if (challengeButton) {
             challengeButton.addEventListener("click", openChallenges);

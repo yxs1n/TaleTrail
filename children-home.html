@@ -11,9 +11,18 @@
 <body>
     <header>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
- <div id="shape">
-        <p> Welcome back, #####!</p>
+ <div id="welcome-message" class="welcome-message">
+    <p>Welcome back, #####!</p>
+</div>
+
+<!-- Badge Popup -->
+<div id="badge-popup" class="popup">
+    <div class="popup-content">
+        <span class="close-btn" onclick="closeBadgePopup()">&times;</span>
+        <h2>Your Earned Badges</h2>
+        <div id="badge-container" class="badge-container"></div>
     </div>
+</div>
         <nav>
             <ul class="navbar">
                 <li><a href="children-home.html"><img src="images/taletraillogo.png" alt="Logo/Home" class="logo"></a></li>

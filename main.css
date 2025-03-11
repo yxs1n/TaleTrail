@@ -220,4 +220,86 @@ opacity: 90%;
 #challenge-popup .close-button:hover {
     opacity: 80%;
 }
+.welcome-message {
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    background: #27A4D9;
+    color: white;
+    padding: 10px;
+    border-radius: 1rem;
+    margin-bottom: 20px;
+    border: #C60000 solid 5px;
+}
+
+.welcome-message:hover {
+    background-color: #1e90ff;
+}
+
+/* Popup Styles */
+#badge-popup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 30px solid #C60000;
+    background-color: white;
+    padding: 20px;
+    border-radius: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#badge-popup .popup-content {
+    max-width: 1000px;
+    padding: 10px;
+    background-color: white;
+}
+
+#badge-popup .close-btn {
+    border-radius: 1rem;
+    border: #C60000 solid 6px;
+    background-color: #C60000;
+    color: white;
+    font-weight: bold;
+    width: 30px;
+    cursor: pointer;
+}
+
+#badge-popup .close-btn:hover {
+    opacity: 80%;
+}
+
+/* Badge Container Styling */
+.badge-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: nowrap;
+    margin-top: 20px;
+    justify-content: center;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.badge {
+    background: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 0 0 auto;
+}
+
+.badge img {
+    width: 200px;
+    height: 200px;
+}
+
+.badge p {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
 

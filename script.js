@@ -54,6 +54,17 @@ window.closeRoadmap = function(){
     closePopup("roadmap-popup");
 }
 
+/* Badge Popup */
+
+window.openBadgePopup = function () {
+    document.getElementById("badge-popup").style.display = "flex";
+    renderBadges(earnedBadges, "badge-container");
+};
+
+window.closeBadgePopup = function () {
+    document.getElementById("badge-popup").style.display = "none";
+};
+
 // Function to display book logs dynamically
 window.displayBookLogs = function(bookLogs) {
     const historyContent = document.getElementById("history-content");
@@ -161,29 +172,32 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* Manual book info entry */
-document.getElementById('add-book-form').addEventListener('submit', function(event) {
-    event.preventDefault();  // Prevent the default form submission
+    /* Function to Display Earned Badges */
+    function renderBadges(badges, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        badges.forEach(badge => {
+            const badgeElement = document.createElement("div");
+            badgeElement.classList.add("badge");
+            badgeElement.innerHTML = `
+                <img src="${badge.imageUrl}" alt="${badge.name} Badge">
+                <p>${badge.name}</p>
+            `;
+            container.appendChild(badgeElement);
+        });
+    }
 
-    // Collect form data
-    const formData = new FormData(this);
-    const data = Object.fromEntries(formData.entries());
+   /* Mock Data: Replace with backend data */
+    const earnedBadges = [
+        { name: "Beginner Reader", imageUrl: "images/beginner-badge.png" },
+        { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
+        { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
+    ];
 
-    // Send the form data using Fetch API
-    fetch('http://127.0.0.1:5000/add_book', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    .then(response => response.text())
-    .then(result => {
-        alert('Book added successfully! This book will now appear when you search for it ;-)');
-        closeManualEntryPopup();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('Failed to add book.');
+    document.addEventListener('DOMContentLoaded', () => {
+        
+         const welcomeMessage = document.getElementById("welcome__msg");
+        if (welcomeMessage) {
+            welcomeMessage.addEventListener("click", openBadgePopup);
+        }
     });
-});

@@ -5,30 +5,65 @@ import Pathway from "./pathway.js";
 // Temporary child
 const Tim = new Child("Tim");
 
+// Function to open popup
+function openPopup(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+// Function to close popup
+function closePopup(id) {
+    document.getElementById(id).style.display = "none";
+}
+
 /* Log Popup */
 
 //Using window to ensure that the function is accessible in the global scope
 window.openAddLog = function() {
-    document.getElementById("myPopup").style.display = "block";
+    openPopup("myPopup");
     document.getElementById('search-input').value = '';
     document.getElementById('results').innerHTML = '';
 }
 
 window.closeAddLog = function(){
-    document.getElementById("myPopup").style.display = "none";
+    closePopup("myPopup");
+}
+
+// Function to close the book details popup 
+window.closeDetailsPopup = function() {
+    closePopup('detailsPopup');
+}
+
+/* Manual Entry Popup */
+window.enterManually = function() {
+    openPopup('manual-entry-popup');
+}
+
+window.closeManualEntryPopup = function() {
+    closePopup('manual-entry-popup');
 }
 
 /* Roadmap Popup */
 
 window.openRoadmap = function(){
-    document.getElementById("roadmap-popup").style.display = "block";
+    openPopup("roadmap-popup");
     const pathway = new Pathway(Tim.bookLogs);
     pathway.renderCharts();
 }
 
 window.closeRoadmap = function(){
-    document.getElementById("roadmap-popup").style.display = "none";
+    closePopup("roadmap-popup");
 }
+
+/* Badge Popup */
+
+window.openBadgePopup = function () {
+    document.getElementById("badge-popup").style.display = "flex";
+    renderBadges(earnedBadges, "badge-container");
+};
+
+window.closeBadgePopup = function () {
+    document.getElementById("badge-popup").style.display = "none";
+};
 
 // Function to display book logs dynamically
 window.displayBookLogs = function(bookLogs) {
@@ -62,20 +97,18 @@ window.displayBookLogs = function(bookLogs) {
 // Modify the openLogHistory function to use the Child instance's book logs
 window.openLogHistory = function() {
     displayBookLogs(Tim.bookLogs);
-    document.getElementById("historyPopup").style.display = "block";
+    openPopup("historyPopup");
 };
 
 // Function to close the history popup
 window.closeHistoryPopup = function() {
-    document.getElementById("historyPopup").style.display = "none";
+    closePopup("historyPopup");
 }
 
 /* Add log functionality */
 document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
-    const popupForm = document.getElementById('popup-form');
-    const detailsPopup = document.getElementById('detailsPopup');
     const selectedBookTitle = document.getElementById('selected-book-title');
     let selectedBookData = {};
     
@@ -119,12 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
         selectedBookData = bookData;
-        detailsPopup.style.display = 'flex';
-    }
-
-    // Function to close the book details popup 
-    window.closeDetailsPopup = function() {
-        detailsPopup.style.display = 'none';
+        openPopup('detailsPopup');
     }
 
     // Function to save book log details
@@ -142,9 +170,38 @@ document.addEventListener('DOMContentLoaded', () => {
         closeDetailsPopup();
         closeAddLog();
     }
-
-   
 });
+
+    /* Function to Display Earned Badges */
+    function renderBadges(badges, containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = "";
+        badges.forEach(badge => {
+            const badgeElement = document.createElement("div");
+            badgeElement.classList.add("badge");
+            badgeElement.innerHTML = `
+                <img src="${badge.imageUrl}" alt="${badge.name} Badge">
+                <p>${badge.name}</p>
+            `;
+            container.appendChild(badgeElement);
+        });
+    }
+
+   /* Mock Data: Replace with backend data */
+    const earnedBadges = [
+        { name: "Beginner Reader", imageUrl: "images/beginner-badge.png" },
+        { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
+        { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+        
+         const welcomeMessage = document.getElementById("welcome__msg");
+        if (welcomeMessage) {
+            welcomeMessage.addEventListener("click", openBadgePopup);
+        }
+    });
+
 
 // Add event listener to each book element in bookshelf 
 document.addEventListener("DOMContentLoaded", function () {

@@ -9,7 +9,19 @@
     <title> LogIn/Register - TaleTrail </title>   
 </head>
 <body>
-    <a href="profile.html">Here we would need to create a login/register form, but for now press this link to go the profiles</a>
+    <div class="login-container">
+        <form action="profile.html" class="login-form">
+            <img src="images/taletraillogo.png" alt="TaleTrail">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="textbox">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" class="textbox">
+            <input type="submit" value="Log In" id="login-btn">
+            <p>Don't have an account? <a href="register.html">Register here</a></p>
+
+        </form>
+    </div>
+
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

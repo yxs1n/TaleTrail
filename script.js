@@ -145,3 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
    
 });
+
+// Add event listener to each book element in bookshelf 
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".book").forEach((book) => {
+        book.addEventListener("click", function () {
+            alert("Opening book details: " + this.textContent);
+        });
+    });
+});

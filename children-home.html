@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="images/taletraillogo.png">
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
     <title> Home - TaleTrail</title>
 </head>
 <body>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
 <nav class="navbar">
     <div class="navbar__container">
-        <p id="welcome__msg">Welcome back, {ParentName}!</p>
+        <p id="welcome__msg">Welcome back, {ChildName}!</p>
         <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar__logo">
         <div class="navbar__toggle" id="mobile-menu">
             <span class="bar"></span>
@@ -68,6 +68,16 @@
         </div>
     </section>
 </div>
+    
+    <!-- Badge Popup -->
+        <div id="badge-popup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeBadgePopup()">&times;</span>
+                <h2>Your Earned Badges</h2>
+                <div id="badge-container" class="badge-container"></div>
+            </div>
+        </div>
+    
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>

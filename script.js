@@ -6,8 +6,8 @@ import Pathway from "./pathway.js";
 const Tim = new Child("Tim");
 
 // Function to open popup
-function openPopup(id) {
-    document.getElementById(id).style.display = "block";
+function openPopup(id, type) {
+    document.getElementById(id).style.display = type;
 }
 
 // Function to close popup
@@ -19,7 +19,7 @@ function closePopup(id) {
 
 //Using window to ensure that the function is accessible in the global scope
 window.openAddLog = function() {
-    openPopup("myPopup");
+    openPopup("myPopup", "block");
     document.getElementById('search-input').value = '';
     document.getElementById('results').innerHTML = '';
 }
@@ -35,7 +35,7 @@ window.closeDetailsPopup = function() {
 
 /* Manual Entry Popup */
 window.enterManually = function() {
-    openPopup('manual-entry-popup');
+    openPopup('manual-entry-popup', 'block');
 }
 
 window.closeManualEntryPopup = function() {
@@ -45,7 +45,7 @@ window.closeManualEntryPopup = function() {
 /* Roadmap Popup */
 
 window.openRoadmap = function(){
-    openPopup("roadmap-popup");
+    openPopup("roadmap-popup", "block");
     const pathway = new Pathway(Tim.bookLogs);
     pathway.renderCharts();
 }
@@ -57,12 +57,12 @@ window.closeRoadmap = function(){
 /* Badge Popup */
 
 window.openBadgePopup = function () {
-    document.getElementById("badge-popup").style.display = "flex";
+    openPopup("badge-popup", "flex");
     renderBadges(earnedBadges, "badge-container");
 };
 
 window.closeBadgePopup = function () {
-    document.getElementById("badge-popup").style.display = "none";
+    closePopup("badge-popup");
 };
 
 // Function to display book logs dynamically
@@ -97,7 +97,7 @@ window.displayBookLogs = function(bookLogs) {
 // Modify the openLogHistory function to use the Child instance's book logs
 window.openLogHistory = function() {
     displayBookLogs(Tim.bookLogs);
-    openPopup("historyPopup");
+    openPopup("historyPopup", "block");
 };
 
 // Function to close the history popup
@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
         selectedBookData = bookData;
-        openPopup('detailsPopup');
+        openPopup('detailsPopup', 'block');
     }
 
     // Function to save book log details
@@ -195,8 +195,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     document.addEventListener('DOMContentLoaded', () => {
-        
-         const welcomeMessage = document.getElementById("welcome__msg");
+        const welcomeMessage = document.getElementById("welcome__msg");
         if (welcomeMessage) {
             welcomeMessage.addEventListener("click", openBadgePopup);
         }

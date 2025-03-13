@@ -203,3 +203,13 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
         { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
     ];
+
+
+// Add event listener to each book element in bookshelf 
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".book").forEach((book) => {
+        book.addEventListener("click", function () {
+            alert("Opening book details: " + this.textContent);
+        });
+    });
+});

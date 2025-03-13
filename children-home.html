@@ -11,24 +11,24 @@
 <body>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
 <nav class="navbar">
-    <div class="navbar__container">
-        <p id="welcome__msg">Welcome back, {ChildName}!</p>
-        <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar__logo">
-        <div class="navbar__toggle" id="mobile-menu">
+    <div class="navbar-container">
+        <p id="welcome-msg">Welcome back, {ChildName}!</p>
+        <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar-logo">
+        <div class="navbar-toggle" id="mobile-menu">
             <span class="bar"></span>
             <span class="bar"></span>
             <span class="bar"></span>
         </div>
-        <ul class="navbar__menu">
-            <li class="navbar__item">
-                <a href="profile.html" class="navbar__links">
-                    <ion-icon name="people-outline" id="navbar__icon"></ion-icon>
+        <ul class="navbar-menu">
+            <li class="navbar-item">
+                <a href="profile.html" class="navbar-links">
+                    <ion-icon name="people-outline" id="navbar-icon"></ion-icon>
                     Switch Profile
                 </a>
             </li>
-            <li class="navbar__item">
-                <a href="index.html" class="navbar__links">
-                    <ion-icon name="exit-outline"id="navbar__icon"></ion-icon>
+            <li class="navbar-item">
+                <a href="index.html" class="navbar-links">
+                    <ion-icon name="exit-outline"id="navbar-icon"></ion-icon>
                     Log Out
                 </a>
             </li>
@@ -39,10 +39,27 @@
 <!-- This is the main content of the page. -->
     <div id="children-home-content">
     <section id="left-content">
-        <div id="my-books">
-            <p> My Books</p>
-            <img src="images/shelves.png" alt="Bookshelf" id="bookshelf">
-      </div>
+        <!-- This is the bookshelf section. -->
+        <div class="bookshelf">
+            <h2 class="bookshelf-title">My Books<ion-icon name="book" class="bookshelf-icon"></ion-icon></h2>
+            <div class="shelf">
+                <div class="book">📘</div>
+                <div class="book">📕</div>
+                <div class="book">📗</div>
+                <div class="book">📙</div>
+            </div>
+
+            <div class="shelf">
+                <div class="book">📘</div>
+                <div class="book">📕</div>
+                <div class="book">📗</div>
+                <div class="book">📖</div>
+            </div>
+
+            <div class="shelf">
+                
+            </div>
+        </div>
         
     </section>
     <section id="middle-content">

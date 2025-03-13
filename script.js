@@ -1,3 +1,4 @@
+
 import Child from "./Child.js";
 import Book from "./Book.js";
 import BookLog from "./BookLog.js";
@@ -42,7 +43,41 @@ window.closeManualEntryPopup = function() {
     closePopup('manual-entry-popup');
 }
 
-/* Roadmap Popup */
+/* Challenge Popup */
+function openChallenges() {
+  document.getElementById("challenge-popup").style.display = "block";
+}
+    
+function closeChallenges() {
+  document.getElementById("challenge-popup").style.display = "none";
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+        
+         const welcomeMessage = document.getElementById("welcome-message");
+        if (welcomeMessage) {
+            welcomeMessage.addEventListener("click", openBadgePopup);
+        }
+        
+        const challengeButton = document.getElementById("challenge-button");
+        if (challengeButton) {
+            challengeButton.addEventListener("click", openChallenges);
+        }
+    
+        // Challenge Data (Replace with actual data later)
+        const challengeList = document.getElementById("challenge-list");
+        const challenges = [
+            { name: "Read 5 Books", progress: 3, goal: 5 },
+            { name: "Read Daily for 7 Days", progress: 5, goal: 7 }
+        ];
+    
+        if (challengeList) {
+            challenges.forEach(challenge => {
+                let listItem = document.createElement("li");
+                listItem.textContent = `${challenge.name} - ${challenge.progress}/${challenge.goal}`;
+                challengeList.appendChild(listItem);
+            });
+        }    
 
 window.openRoadmap = function(){
     openPopup("roadmap-popup", "block");
@@ -136,18 +171,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Band: ${band}</p>`;
                     recordElement.addEventListener('click', () => {
                         window.openDetailsPopup(title, {author, pages, genre, band});
-                    });
-                    resultsDiv.appendChild(recordElement);
-                });
-            } else {
-                resultsDiv.textContent = 'No results found';
-            }
-        } catch (error) {
-            resultsDiv.textContent = 'Error fetching data.';
-            console.error('Error fetching data:', error);
-        }
-    };
 
+                    });
+                } else {
+                    resultsDiv.textContent = 'No results found';
+                }
+            } catch (error) {
+                resultsDiv.textContent = 'Error fetching data.';
+                console.error('Error fetching data:', error);
+            }
+        };
+  
     // Function to open the book details popup
     window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
@@ -193,10 +227,3 @@ document.addEventListener('DOMContentLoaded', () => {
         { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
         { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
     ];
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const welcomeMessage = document.getElementById("welcome__msg");
-        if (welcomeMessage) {
-            welcomeMessage.addEventListener("click", openBadgePopup);
-        }
-    });

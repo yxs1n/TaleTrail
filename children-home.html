@@ -5,48 +5,73 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="images/taletraillogo.png">
-    <script src="script.js"></script>
+    <script type="module" src="script.js"></script>
     <title> Home - TaleTrail</title>
 </head>
 <body>
-    <header>
 <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
- <div id="welcome-message" class="welcome-message">
-    <p>Welcome back, #####!</p>
-</div>
-
-<!-- Badge Popup -->
-<div id="badge-popup" class="popup">
-    <div class="popup-content">
-        <span class="close-btn" onclick="closeBadgePopup()">&times;</span>
-        <h2>Your Earned Badges</h2>
-        <div id="badge-container" class="badge-container"></div>
+<nav class="navbar">
+    <div class="navbar__container">
+        <p id="welcome__msg">Welcome back, {ChildName}!</p>
+        <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar__logo">
+        <div class="navbar__toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="navbar__menu">
+            <li class="navbar__item">
+                <a href="profile.html" class="navbar__links">
+                    <ion-icon name="people-outline" id="navbar__icon"></ion-icon>
+                    Switch Profile
+                </a>
+            </li>
+            <li class="navbar__item">
+                <a href="index.html" class="navbar__links">
+                    <ion-icon name="exit-outline"id="navbar__icon"></ion-icon>
+                    Log Out
+                </a>
+            </li>
+        </ul>
     </div>
-</div>
-        <nav>
-            <ul class="navbar">
-                <li><a href="children-home.html"><img src="images/taletraillogo.png" alt="Logo/Home" class="logo"></a></li>
+</nav>
 
-                <li><button><a href="switchprofile.html"><img src="images/switchprofile.png" alt="" class="icon">Switch Profile</a></button></li>
-
-                <li><button class="nav-butt"><a href="index.html"><img src="images/exit.png" alt="" class="icon">Log Out</a></button></li>
-            </ul>
-        </nav>
-    </header>
 <!-- This is the main content of the page. -->
-    <div id="home-content">
-         <button id="roadmap-button" onclick="openRoadmap()"><img src="images/roadmap.png" alt="" style="height: 80px;"> View Roadmap</button>
-
-         <button id="challenge-button" onclick="openChallenges()"><img src="images/target.png" alt="" style="height: 80px;"> View Challenges</button>
-        <div id="shape">
-            <p>DAILY READING STREAK ### </p>
-        </div>
-        <div id="shape">
-        <p> Current Book</p>
-        </div>
+    <div id="children-home-content">
+    <section id="left-content">
+        <div id="my-books">
+            <p> My Books</p>
+            <img src="images/shelves.png" alt="Bookshelf" id="bookshelf">
+      </div>
+        
+    </section>
+    <section id="middle-content">
+    <div id="daily-streak">
+            <p>DAILY READING STREAK <br> ### </p>
     </div>
-    
-        <div class="log-popup" id="challenge-popup" style="display: none;">
+    <div id="current-book-container">
+        <p> CURRENT BOOK</p>
+        <br>
+        <img src="images/book.png" alt="Book" id="current-book">
+        <p> Title: </p>
+    </div>
+    </section>
+    <section>
+        <button id="roadmap-button" onclick="openRoadmap()">
+            <img src="images/roadmap.png" alt="" style="height: 80px;"> View Roadmap 
+            </a>
+        </button>
+        <div class="popup-container" id="roadmap-popup">
+            <button type="button" class="close-button" onclick="closeRoadmap()"> X </button>
+            <h1>Your roadmap </h1>
+            <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
+        </div>
+          <button id="challenge-button" onclick="openChallenges()"><img src="images/target.png" alt="" style="height: 80px;"> View Challenges</button>
+    </section>
+</div>
+
+<!-- Challenge Popup -->
+<div class="log-popup" id="challenge-popup" style="display: none;">
         <div class="popup-container">
             <button type="button" class="close-button" onclick="closeChallenges()">X</button>
             <h1>Your Challenges</h1>
@@ -55,5 +80,16 @@
         </div>
     </div>
     
+    <!-- Badge Popup -->
+        <div id="badge-popup" class="popup">
+            <div class="popup-content">
+                <span class="close-btn" onclick="closeBadgePopup()">&times;</span>
+                <h2>Your Earned Badges</h2>
+                <div id="badge-container" class="badge-container"></div>
+            </div>
+        </div>
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
 </html>

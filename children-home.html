@@ -83,8 +83,19 @@
             <h1>Your roadmap </h1>
             <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
         </div>
+          <button id="challenge-button" onclick="openChallenges()"><img src="images/target.png" alt="" style="height: 80px;"> View Challenges</button>
     </section>
 </div>
+
+<!-- Challenge Popup -->
+<div class="log-popup" id="challenge-popup" style="display: none;">
+        <div class="popup-container">
+            <button type="button" class="close-button" onclick="closeChallenges()">X</button>
+            <h1>Your Challenges</h1>
+            <p>Track your reading challenges here!</p>
+            <ul id="challenge-list"></ul>
+        </div>
+    </div>
     
     <!-- Badge Popup -->
         <div id="badge-popup" class="popup">

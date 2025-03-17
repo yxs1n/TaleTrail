@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     font-family: 'Kumbh Sans', sans-serif;
+    text-decoration: none;
 }
 
 .button {
@@ -120,6 +121,44 @@
 #login-btn:hover {
     background-image: linear-gradient(to top, #0035e5 0%, #53d5fd 100%);
     transition: all 0.35s ease;
+}
+
+/* Profile Page Styling */
+
+.profile-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    gap: 50px;
+    background: linear-gradient(to top, #53d5fd 0%, #1d1d1d 90%);
+}
+
+.profile-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 25px 40px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+    border-radius: 1rem;
+    background: #53d5fd;
+    color: black;
+    gap: 20px;
+    font-size: 2rem;
+    font-weight: bold;
+    border: #323232 solid 10px;
+}
+
+.profile-btn:hover {
+    background: #323232;
+    color: white;
+    transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 /* Navbar Styling */
@@ -539,8 +578,6 @@
 .ch-icons {
     font-size: 60px;
 }
-
-    
     
 /* Parent Landing Page Styling */
     /* Buttons */

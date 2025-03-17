@@ -21,6 +21,28 @@
     color: #fff;
 }
 
+.close-button{
+    border-radius: 0.5rem;
+    font-size: 30px;
+    justify-content: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    background-color: #323232;
+    color: crimson;
+    font-weight: bold;
+    width: 50px;
+    height: 30px;
+    cursor: pointer; 
+    border: none;
+}
+
+.close-button:hover {
+    transition: all 0.25s ease;
+    background-color: black;
+    cursor: pointer;
+}
+
 /* Login Styling */
 .login-container {
     display: flex;
@@ -320,63 +342,40 @@
 
 /* Children Landing Page Styling */
 
-#children-home-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 100%;
-    height: 93vh;
+.ch-content{
+    display: grid;
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
     background: linear-gradient(to top, #53d5fd 0%, #1d1d1d 90%);
+    height: 93vh;
+    width: 100%;
 }
 
-#right-content {
-    flex-direction: column;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-    max-width: 400px;
-    min-height: 60vh;
+.left-content{
+    display: flex;
+    flex-direction: column; /* Stack widgets vertically */
+    align-items: center; /* Center widgets horizontally */
+    justify-content: center; /* Align widgets in center */
+    gap: 15px; /* Space between buttons */
     padding: 20px;
-    
 }
 
-#middle-content {
+.middle-content{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center; 
-    width: 40%;
+    flex-direction: column; /* Stack widgets vertically */
+    align-items: center; /* Center widgets horizontally */
+    justify-content: center; /* Align widgets in center */
+    gap: 30px; /* Space between buttons */
+    padding: 20px;
 }
 
-#left-content {
+.right-content{
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 30%;
-    height: 100%;
-}
-
-
-    /* Buttons */
-
-
-#children-home-content button{
-    background-color: #53d5fd; 
-    font-size: 20px;
-    border-radius: 1rem ;
-    width: 500px;
-    height: 100px;
-    color: #000000;
-    font-weight: bold;;
-}
-#children-home-content button a{
-    text-decoration: none;
-    color: black;
-    display: flex;
-    font-weight: bold;
-    font-size: 20px;
+    flex-direction: column; /* Stack widgets vertically */
+    align-items: center; /* Center widgets horizontally */
+    justify-content: center; /* Align widgets in center */
+    gap: 15px; /* Space between buttons */
+    padding: 20px;
 }
 
 /* Bookshelf Styling */
@@ -385,8 +384,7 @@
     background: #53d5fd;
     border-radius: 12px;
     padding: 20px;
-    width: 80%;
-    max-width: 600px;
+    width: 100%;
     margin: 0 auto;
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     text-align: center;
@@ -397,7 +395,7 @@
 }
 
 .bookshelf-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: bold;
     color: black;
     margin-bottom: 15px;
@@ -420,7 +418,7 @@
 }
 
 .book {
-    width: 50px;
+    width: 60px;
     height: 80px;
     background-color: #323232;
     border-radius: 5px;
@@ -436,6 +434,7 @@
 .book:hover {
     transform: translateY(-5px); /* Slight lift effect */
     transform: scale(1.3); /* Scale up effect */
+    cursor: pointer;
 }
 
 /*Daily Streak*/
@@ -443,26 +442,41 @@
 #daily-streak {
     display: flex;
     flex-direction: column;
-    align-items: center; 
     justify-content: center;
+    gap: 30px;
     text-align: center;
-    width: 70%;
-    max-width: 800px; 
-    margin: 50px auto; 
+    width: 100%;
+    height: 22%;
     padding: 20px;
     background-color: #53d5fd; 
     border: 5px solid #323232;
     border-radius: 1rem;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); 
     color: black;
-}
-
-#daily-streak p {
-    font-size: 24px;
+    font-size: 2rem;
     font-weight: bold;
-    color: black;
 }
 
+#daily-streak:hover {
+    background-color: #323232;
+    color: white;
+    transition: all 0.3s;
+}
+
+#streak {
+    display: flex;
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+}
+
+#streak-icon {
+    font-size: 5rem;
+    color: rgb(255, 94, 0);
+}
 
 /*Current Book*/
 #current-book-container {
@@ -471,26 +485,61 @@
     align-items: center; 
     justify-content: center;
     text-align: center;
-    width: 70%;
-    max-width: 800px; 
-    margin: 50px auto; 
+    width: 100%;
+    height: 30%;
     padding: 20px;
     background-color: #53d5fd; 
     border: 5px solid #323232;
     border-radius: 1rem;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
 }
 
-#current-book-container p {
-    font-size: 24px;
-    font-weight: bold;
-    color: black;
+#current-book-container:hover {
+    background-color: #323232;
+    color: white;
+    transition: all 0.3s;
 }
+
+
 
 #current-book {
     width: 150px; 
     height: auto;
     margin-top: 10px;
 }
+
+/* Right Content Styling */
+
+.ch-btn {
+    display: flex;
+    flex-direction: column; /* Stack the items vertically */
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the icon and text */
+    background-color: #53d5fd;
+    margin: 0 30px;
+    font-size: 2rem;
+    border-radius: 1rem;
+    width: 100%;
+    height: 20%;
+    color: black;
+    font-weight: bold;
+    border: #202020 solid 5px;
+}
+
+.ch-btn:hover {
+    background-color: #323232;
+    color: white;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+.ch-icons {
+    font-size: 60px;
+}
+
     
     
 /* Parent Landing Page Styling */
@@ -591,28 +640,6 @@
 
 .search-result:hover {
     background-color: #f0f0f0;
-}
-
-.close-button{
-    border-radius: 0.5rem;
-    font-size: 30px;
-    justify-content: center;
-    text-align: center;
-    align-self: center;
-    align-content: center;
-    background-color: #323232;
-    color: crimson;
-    font-weight: bold;
-    width: 50px;
-    height: 30px;
-    cursor: pointer; 
-    border: none;
-}
-
-.close-button:hover {
-    transition: all 0.25s ease;
-    background-color: black;
-    cursor: pointer;
 }
 
 
@@ -750,41 +777,6 @@ h2 {
     background-color: white;
 }
 
-#badge-popup .close-btn {
-    border-radius: 1rem;
-    background-color: #C60000;
-    color: white;
-    font-weight: bold;
-    width: 50px;
-    height: 30px;
-    cursor: pointer;
-    border: none;
-    text-align: center;
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#badge-popup .close-btn:hover {
-    opacity: 80%;
-}
-
-#challenge-button {
-    background-color: #27A4D9; 
-    font-size: 20px;
-    border-radius: 1rem;
-    width: 500px;
-    height: 100px;
-    color: #C60000;
-    font-weight: bold;
-    border: #C60000 solid 5px;
-}
-
-#challenge-button:hover {
-    cursor: pointer;
-    opacity: 90%;
-}
 
 /* Challenge Popup */
 #challenge-popup {
@@ -793,7 +785,8 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 30px solid #C60000;
+    border-radius: 0.5rem;
+    border: 10px solid #323232;
 }
 
 #challenge-popup .popup-container {
@@ -802,19 +795,6 @@ h2 {
     background-color: white;
 }
 
-#challenge-popup .close-button {
-    border-radius: 1rem;
-    border: #C60000;
-    background-color: #C60000;
-    color: white;
-    font-weight: bold;
-    width: 30px;
-    cursor: pointer;
-}
-
-#challenge-popup .close-button:hover {
-    opacity: 80%;
-}
 .welcome-message {
     cursor: pointer;
     font-size: 20px;

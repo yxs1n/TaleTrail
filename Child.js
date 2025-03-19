@@ -1,3 +1,4 @@
+import BookLog from "./BookLog.js";
 class Child {
     constructor(name) {
         this.name = name;
@@ -11,10 +12,17 @@ class Child {
     addBooklog(log) {
         if (log instanceof BookLog) {
             this.bookLogs.push(log);
-            console.log(`Book log added for ${this.name}: ${log.bookTitle}`);
+            console.log(`Book log added for ${this.name}: ${log.book}`);
         } else {
             console.error("Invalid BookLog object.");
         }
+    }
+
+    // Remove BookLog
+    removeBookLog(startIndex, quant) {
+        const bookName = this.bookLogs[startIndex].book;
+        this.bookLogs.splice(startIndex, quant);
+        console.log(`Book log removed for ${this.name}: ${bookName}`);
     }
 
     // view reading pathway

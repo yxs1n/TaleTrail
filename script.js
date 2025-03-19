@@ -79,7 +79,7 @@ window.displayBookLogs = function(bookLogs) {
     const historyContent = document.getElementById("history-content");
     historyContent.innerHTML = ""; // Clear existing logs
 
-    bookLogs.forEach(log => {
+    bookLogs.forEach((log, index) => {
         const logEntry = document.createElement("div");
         logEntry.classList.add("log-entry");
 
@@ -98,6 +98,18 @@ window.displayBookLogs = function(bookLogs) {
         const dateAdded = document.createElement("p");
         dateAdded.textContent = `Date Added: ${log.dateAdded.toISOString().split('T')[0]}`;
         logEntry.appendChild(dateAdded);
+
+        // Add delete button with a bin icon
+        const deleteButton = document.createElement("button");
+        deleteButton.classList.add("delete-button");
+        deleteButton.innerHTML = `🗑️`; // Bin icon
+        logEntry.appendChild(deleteButton);
+
+        // Add event listener to delete the specific log
+        deleteButton.addEventListener("click", () => {
+            Tim.removeBookLog(index, 1); // Remove the log from the array
+            window.displayBookLogs(bookLogs); // Re-render the logs
+        });
 
         historyContent.appendChild(logEntry);
     });
@@ -119,6 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
     const selectedBookTitle = document.getElementById('selected-book-title');
+    const pagesRead = document.getElementById('pages-read').value;
+    const timeSpent = document.getElementById('time-spent').value;
     let selectedBookData = {};
     
     window.searchBooks = async () => {
@@ -162,6 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
     window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
         selectedBookData = bookData;
+        //Clear prior entries
+        document.getElementById('pages-read').value = "";
+        document.getElementById('time-spent').value = "";
         openPopup('detailsPopup', 'block');
     }
 
@@ -175,7 +192,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const book = new Book(id, bookTitle, null, author, pages, genre, band);
         const bookLog = new BookLog(book, pagesRead, timeSpent);
         Tim.currentBooks.push(book);
-        Tim.bookLogs.push(bookLog);
+        Tim.addBooklog(bookLog);
 
         closeDetailsPopup();
         closeAddLog();

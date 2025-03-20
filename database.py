@@ -154,17 +154,61 @@ def add_book_log_route():
     response = insert_book_log(book_id, child_id, pages_read, time_spent, date_added, completed)
     return response  # Return the response as JSON
 
+# Route to return child info to frontend
+@app.route('/get_child/<int:child_id>', methods=['GET'])
+def get_child(child_id):
+    # Query the database to get the child
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM Child WHERE id = ?", (child_id,))
+    child = cursor.fetchone()
+    conn.close()
+
+    if child:
+        return jsonify({"id": child[0], "name": child[1]})
+    return jsonify({"error": "Child not found"}), 404
+
+# Route to get child current books
+@app.route('/get_child_books/<int:child_id>', methods=['GET'])
+def get_child_books(child_id):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT Books.* FROM Books
+        JOIN ChildBooks ON Books.id = ChildBooks.book_id
+        WHERE ChildBooks.child_id = ?
+    """, (child_id,))
+    books = cursor.fetchall()
+    conn.close()
+
+    return jsonify([
+        {"id": book[0], "title": book[1], "image": book[2], "author": book[3], "pages": book[4], "genre": book[5], "band": book[6]}
+        for book in books
+    ])
+
+# Route to get book logs
+@app.route('/get_book_logs/<int:child_id>', methods=['GET'])
+def get_book_logs(child_id):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+    cursor.execute("""
+        SELECT BookLog.*, Books.title, Books.image, Books.author, Books.pages, Books.genre, Books.band
+        FROM BookLog
+        JOIN Books ON BookLog.book_id = Books.id
+        WHERE BookLog.child_id = ?
+    """, (child_id,))
+    logs = cursor.fetchall()
+    conn.close()
+
+    return jsonify([
+        {"log_id": log[0], "book_id": log[1], "child_id": log[2], "pages_read": log[3],
+         "time_spent": log[4], "date_added": log[5], "completed": log[6],
+         "title": log[7], "image": log[8], "author": log[9], "pages": log[10], "genre": log[11], "band": log[12]}
+        for log in logs
+    ])
+
 if __name__ == '__main__':
     app.run(debug=True)
-
-# def delete_record(title):
-#     conn = sqlite3.connect('books.db')
-#     cursor = conn.cursor()
-    
-#     # Execute the DELETE statement to remove the row with the specified title
-#     cursor.execute("DELETE FROM bookInfo WHERE lower(title) = lower(?)", (title,))
-    
-#     conn.commit()
 
 # # Print table content
 # conn = sqlite3.connect('books.db')

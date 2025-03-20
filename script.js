@@ -8,6 +8,20 @@ const Tim = new Child("Tim");
 Tim.saveChild();
 const badges = new Badges();
 
+// Fetch and populate data into Tim object when the DOM is ready
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        console.log('Loading data for Tim...');
+        Tim.fetchChildDetails(1);  // Fetch Tim's details using ID 1
+        Tim.fetchChildBooks(1);    // Fetch Tim's books using ID 1
+        Tim.fetchBookLogs(1);      // Fetch Tim's book logs using ID 1
+
+        console.log('All data loaded into Tim:', Tim);
+    } catch (error) {
+        console.error('Error while loading Tim\'s data:', error);
+    }
+});
+
 // Function to open popup
 function openPopup(id, type) {
     document.getElementById(id).style.display = type;
@@ -70,6 +84,7 @@ window.closeRoadmap = function(){
 window.openBadgePopup = function () {
     openPopup("badge-popup", "flex");
     let totalPagesRead = 0; // Change this value for testing
+    console.log(Tim.getTotalPagesRead())
     badges.renderBadges(Tim.getTotalPagesRead()); 
 };
 

@@ -1,4 +1,5 @@
 import BookLog from "./BookLog.js";
+import Book from "./Book.js"
 class Child {
     constructor(name) {
         this.id;
@@ -32,8 +33,9 @@ class Child {
 
     getTotalPagesRead() {
         this.totalPagesRead = 0;
-        for(var i = 0; i < this.bookLogs; i++) {
+        for(var i = 0; i < this.bookLogs.length; i++) {
             this.totalPagesRead += this.bookLogs[i].pagesRead;
+            console.log(this.bookLogs[i]);
         }
         return this.totalPagesRead;
     }
@@ -99,6 +101,50 @@ class Child {
             console.log('Book Log Added:', data);
         })
         .catch(error => console.error('Error:', error));
+    }
+
+    // Fetches name
+    fetchChildDetails(childId) {
+        fetch(`http://127.0.0.1:5000/get_child/${childId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    console.error(data.error);
+                } else {
+                    this.name = data.name; // Update child name
+                    console.log(`Fetched child details: ${data.name}`);
+                }
+            })
+            .catch(error => console.error('Error fetching child details:', error));
+    }
+
+    // Fetches current books and populates this.currentBooks
+    fetchChildBooks(childId) {
+        fetch(`http://127.0.0.1:5000/get_child_books/${childId}`)
+            .then(response => response.json())
+            .then(data => {
+                this.currentBooks = data.map(book => new Book(
+                    book.id, book.title, book.image, book.author, book.pages, book.genre, book.band
+                ));
+                console.log('Fetched current books:', this.currentBooks);
+            })
+            .catch(error => console.error('Error fetching child books:', error));
+    }
+
+    // Fetches log data and populates this.bookLogs
+    fetchBookLogs(childId) {
+        fetch(`http://127.0.0.1:5000/get_book_logs/${childId}`)
+            .then(response => response.json())
+            .then(data => {
+                this.bookLogs = data.map(log => new BookLog(
+                    new Book(
+                        log.book_id, log.title, log.image, log.author, log.pages, log.genre, log.band
+                    ),
+                    log.pages_read, log.time_spent, new Date(log.date_added), log.completed
+                ));
+                console.log('Fetched book logs:', this.bookLogs);
+            })
+            .catch(error => console.error('Error fetching book logs:', error));
     }
 
     // Function to display book logs dynamically

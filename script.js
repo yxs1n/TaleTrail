@@ -67,8 +67,10 @@ window.closeRoadmap = function(){
 
 window.openBadgePopup = function () {
     openPopup("badge-popup", "flex");
-    renderBadges(earnedBadges, "badge-container");
+    let totalPagesRead = 0; // Change this value for testing
+    renderBadges(totalPagesRead, "badge-container"); 
 };
+
 
 window.closeBadgePopup = function () {
     closePopup("badge-popup");
@@ -199,27 +201,46 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-    /* Function to Display Earned Badges */
-    function renderBadges(badges, containerId) {
-        const container = document.getElementById(containerId);
-        container.innerHTML = "";
-        badges.forEach(badge => {
-            const badgeElement = document.createElement("div");
-            badgeElement.classList.add("badge");
-            badgeElement.innerHTML = `
-                <img src="${badge.imageUrl}" alt="${badge.name} Badge">
-                <p>${badge.name}</p>
-            `;
-            container.appendChild(badgeElement);
-        });
-    }
-
-   /* Mock Data: Replace with backend data */
-    const earnedBadges = [
-        { name: "Beginner Reader", imageUrl: "images/beginner-badge.png" },
-        { name: "Advanced Reader", imageUrl: "images/advanced-badge.png" },
-        { name: "Expert Reader", imageUrl: "images/expert-badge.png" },
+// Function to determine earned badges based on total pages read
+function getEarnedBadges(totalPagesRead) {
+    const badges = [
+        { name: "Beginner", imageUrl: "images/beginner-badge.png", pages: 10 },
+        { name: "Advanced", imageUrl: "images/advanced-badge.png", pages: 1000 },
+        { name: "Expert", imageUrl: "images/expert-badge.png", pages: 2000 }
     ];
+
+    return badges.map(badge => ({
+        ...badge,
+        unlocked: totalPagesRead >= badge.pages
+    }));
+}
+
+// Function to display all badges, with placeholders for locked ones
+function renderBadges(totalPagesRead, containerId) {
+    const container = document.getElementById(containerId);
+    
+    container.innerHTML = ""; // Clear previous badges
+    const badges = getEarnedBadges(totalPagesRead);
+    
+    badges.forEach(badge => {
+
+        const badgeElement = document.createElement("div");
+        badgeElement.classList.add("badge");
+        badgeElement.innerHTML = `
+            <img src="${badge.unlocked ? badge.imageUrl : 'images/locked-badge.png'}" 
+                 alt="${badge.name} Badge">
+            <p>${badge.unlocked ? badge.name : "Locked"}</p>
+        `;
+        container.appendChild(badgeElement);
+    });
+}
+    document.addEventListener('DOMContentLoaded', () => {
+        
+        const welcomeMessage = document.getElementById("welcome-msg");
+       if (welcomeMessage) {
+           welcomeMessage.addEventListener("click", openBadgePopup);
+       }
+   });
 
 
 // Add event listener to each book element in bookshelf 

@@ -814,10 +814,10 @@ h2 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 30px solid #C60000;
+    border: 10px solid #323232;
     background-color: white;
     padding: 20px;
-    border-radius: 1rem;
+    border-radius: 0.5rem;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }

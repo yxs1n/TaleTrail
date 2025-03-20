@@ -106,16 +106,20 @@
                     <ul id="challenge-list"></ul>
                 </div>
             </div>
-        </section>
-    </div>
-    <!-- Badge Popup -->
-        <div id="badge-popup" class="popup">
-            <div class="popup-content">
-                <button type="button" class="close-button" onclick="closeBadgePopup()"> <ion-icon name="close"></ion-icon> </button>
-                <h2>Your Earned Badges</h2>
-                <div id="badge-container" class="badge-container"></div>
+            <!--Badges Button-->
+            <button class="ch-btn" onclick="openBadgePopup()">
+                <ion-icon name="medal-outline" class="ch-icons"></ion-icon>
+                View Badges
+            </button>
+            <!-- Badge Popup -->
+             <div id="badge-popup" class="popup">
+                <div class="popup-content">
+                    <button type="button" class="close-button" onclick="closeBadgePopup()"> <ion-icon name="close"></ion-icon> </button>
+                    <h2>Your Earned Badges</h2>
+                    <div id="badge-container" class="badge-container"></div>
+                </div>
             </div>
-        </div>
+        </section>
     
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

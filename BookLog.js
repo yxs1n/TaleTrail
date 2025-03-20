@@ -7,6 +7,10 @@ class BookLog {
         this.completed = completed;
     }
 
+    // addLog() {
+
+    // }
+
     /*triggerInteraction()*/
     
 }

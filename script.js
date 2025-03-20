@@ -152,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const book = new Book(id, bookTitle, null, author, pages, genre, band);
         const bookLog = new BookLog(book, pagesRead, timeSpent);
-        Tim.currentBooks.push(book);
+        Tim.addCurrentBook(book);
         Tim.addBooklog(bookLog);
 
         closeDetailsPopup();
@@ -193,14 +193,6 @@ function renderBadges(totalPagesRead, containerId) {
         container.appendChild(badgeElement);
     });
 }
-    document.addEventListener('DOMContentLoaded', () => {
-        
-        const welcomeMessage = document.getElementById("welcome-msg");
-       if (welcomeMessage) {
-           welcomeMessage.addEventListener("click", openBadgePopup);
-       }
-   });
-
 
 // Add event listener to each book element in bookshelf 
 document.addEventListener("DOMContentLoaded", function () {

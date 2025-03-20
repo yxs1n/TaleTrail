@@ -8,6 +8,11 @@ class Child {
         this.badgesEarned = [];  // List of Badge objects
     }
 
+    // Add to current books
+    addCurrentBook(book) {
+        this.currentBooks.push(book);
+    }
+
     // add a BookLog entry
     addBooklog(log) {
         if (log instanceof BookLog) {
@@ -31,6 +36,7 @@ class Child {
         historyContent.innerHTML = ""; // Clear existing logs
     
         this.bookLogs.forEach((log, index) => {
+            console.log(log);
             const logEntry = document.createElement("div");
             logEntry.classList.add("log-entry");
     

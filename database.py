@@ -14,23 +14,74 @@ with open('schema.sql', 'r') as f:
 conn.commit()
 conn.close()
 
-#Add parent to parent table
-def add_parent(name, email):
+#Add child to child table
+def insert_child(name):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO Parent (name, email) VALUES (?, ?)", (name, email))
-    conn.commit()
-    conn.close()
+    try:
+        # Check if the child already exists
+        cursor.execute("SELECT id FROM Child WHERE name = ?", (name,))
+        existing_child = cursor.fetchone()
 
-#Add child to child table including parent id
-def add_child(name, parent_id):
+        if existing_child:
+            return jsonify({"message": "Child already exists!", "child_id": existing_child[0]})
+
+        # Add the new child
+        cursor.execute("INSERT INTO Child (name) VALUES (?)", (name,))
+        conn.commit()
+        return jsonify({"message": "Child added successfully!", "child_id": cursor.lastrowid})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+    finally:
+        conn.close()
+
+#Add book read by child to ChildBooks table
+def insert_child_book(child_id, book_id):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
 
-    cursor.execute("INSERT INTO Child (name, parent_id) VALUES (?, ?)", (name, parent_id))
-    conn.commit()
-    conn.close()
+    try:
+        # Check if the book is already associated with the child
+        cursor.execute("SELECT id FROM ChildBooks WHERE child_id = ? AND book_id = ?", (child_id, book_id))
+        existing_entry = cursor.fetchone()
+
+        if existing_entry:
+            return jsonify({"message": "Book already added to child's current books!"})
+        
+        # Add the book for the child
+        cursor.execute("INSERT INTO ChildBooks (child_id, book_id) VALUES (?, ?)", (child_id, book_id))
+        conn.commit()
+        return jsonify({"message": "Book added to child's current books successfully!"})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+    finally:
+        conn.close()
+
+
+#Add book log to booklog table
+def insert_book_log(book_id, child_id, pages_read, time_spent, date_added, completed):
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    try:
+        # Add the new book log
+        cursor.execute("""
+            INSERT INTO BookLog (book_id, child_id, pages_read, time_spent, date_added, completed)
+            VALUES (?, ?, ?, ?, ?, ?)
+        """, (book_id, child_id, pages_read, time_spent, date_added, completed))
+        conn.commit()
+        return jsonify({"message": "Book log added successfully!"})
+    
+    except Exception as e:
+        return jsonify({"error": str(e)})
+    
+    finally:
+        conn.close()
 
 #Add book to book table
 def insert_book(title, author, pages, genre, band):
@@ -38,18 +89,6 @@ def insert_book(title, author, pages, genre, band):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
     cursor.execute("INSERT INTO Books (title, image, author, pages, genre, band) VALUES (?, ?, ?, ?, ?, ?)", book)
-    conn.commit()
-    conn.close()
-
-#Add book log to booklog table
-def add_book_log(book_id, child_id, pages_read, time_spent, completed):
-    conn = sqlite3.connect('data.db')
-    cursor = conn.cursor()
-
-    cursor.execute(
-        "INSERT INTO BookLog (book_id, child_id, pages_read, time_spent, date_added, completed) VALUES (?, ?, ?, ?, datetime('now'), ?)",
-        (book_id, child_id, pages_read, time_spent, completed)
-    )
     conn.commit()
     conn.close()
 
@@ -85,6 +124,35 @@ def get_record():
     query = request.args.get('title')
     records = return_record(query)
     return jsonify(records)
+
+# Route for adding child
+@app.route('/add_child', methods=['POST'])
+def add_child():
+    data = request.get_json()
+    name = data['name']
+    return insert_child(name)  
+
+#Route for adding book to child's current books table
+@app.route('/add_child_book', methods=['POST'])
+def add_child_book():
+    data = request.get_json()  # Receive JSON data
+    child_id = data['child_id']
+    book_id = data['book_id']
+    response = insert_child_book(child_id, book_id)  # Call database function
+    return response  # Return the response as JSON
+
+#Route for adding book log
+@app.route('/add_book_log', methods=['POST'])
+def add_book_log_route():
+    data = request.get_json()  # Receive JSON data
+    book_id = data['book_id']
+    child_id = data['child_id']
+    pages_read = data['pages_read']
+    time_spent = data['time_spent']
+    date_added = data['date_added']
+    completed = data['completed']
+    response = insert_book_log(book_id, child_id, pages_read, time_spent, date_added, completed)
+    return response  # Return the response as JSON
 
 if __name__ == '__main__':
     app.run(debug=True)

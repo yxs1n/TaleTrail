@@ -1,14 +1,6 @@
-CREATE TABLE IF NOT EXISTS Parent (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    email TEXT UNIQUE NOT NULL
-);
-
 CREATE TABLE IF NOT EXISTS Child (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
-    parent_id INTEGER,
-    FOREIGN KEY (parent_id) REFERENCES Parents(id)
+    name TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Books (
@@ -19,6 +11,14 @@ CREATE TABLE IF NOT EXISTS Books (
     pages INTEGER,
     genre TEXT,
     band TEXT
+);
+
+CREATE TABLE IF NOT EXISTS ChildBooks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    child_id INTEGER NOT NULL,
+    book_id INTEGER NOT NULL,
+    FOREIGN KEY (child_id) REFERENCES Child (id),
+    FOREIGN KEY (book_id) REFERENCES Books (id)
 );
 
 CREATE TABLE IF NOT EXISTS BookLog (
@@ -32,4 +32,5 @@ CREATE TABLE IF NOT EXISTS BookLog (
     FOREIGN KEY (book_id) REFERENCES Book (id),
     FOREIGN KEY (child_id) REFERENCES Child (id)
 );
+
 

@@ -1,10 +1,12 @@
-
 import Child from "./Child.js";
 import Book from "./Book.js";
 import BookLog from "./BookLog.js";
-import Pathway from "./pathway.js";
+import Pathway from "./Pathway.js";
+import Badges from "./Badges.js";
 // Temporary child
 const Tim = new Child("Tim");
+Tim.saveChild();
+const badges = new Badges();
 
 // Function to open popup
 function openPopup(id, type) {
@@ -45,11 +47,11 @@ window.closeManualEntryPopup = function() {
 
 /* Challenge Popup */
 window.openChallenges = function() {
-  document.getElementById("challenge-popup").style.display = "block";
+    openPopup("challenge-popup", 'block');
 }
     
 window.closeChallenges = function() {
-  document.getElementById("challenge-popup").style.display = "none";
+    closePopup("challenge-popup");
 }
         
 /* Roadmap Popup */
@@ -68,7 +70,7 @@ window.closeRoadmap = function(){
 window.openBadgePopup = function () {
     openPopup("badge-popup", "flex");
     let totalPagesRead = 0; // Change this value for testing
-    renderBadges(totalPagesRead, "badge-container"); 
+    badges.renderBadges(Tim.getTotalPagesRead()); 
 };
 
 
@@ -154,45 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const bookLog = new BookLog(book, pagesRead, timeSpent);
         Tim.addCurrentBook(book);
         Tim.addBooklog(bookLog);
+        Tim.saveBook(1, book.id)
+        Tim.saveBookLog(book.id, 1, bookLog.pagesRead, bookLog.timeSpent, bookLog.dateAdded, bookLog.completed)
 
         closeDetailsPopup();
         closeAddLog();
     }
 });
-
-// Function to determine earned badges based on total pages read
-function getEarnedBadges(totalPagesRead) {
-    const badges = [
-        { name: "Beginner", imageUrl: "images/beginner-badge.png", pages: 10 },
-        { name: "Advanced", imageUrl: "images/advanced-badge.png", pages: 1000 },
-        { name: "Expert", imageUrl: "images/expert-badge.png", pages: 2000 }
-    ];
-
-    return badges.map(badge => ({
-        ...badge,
-        unlocked: totalPagesRead >= badge.pages
-    }));
-}
-
-// Function to display all badges, with placeholders for locked ones
-function renderBadges(totalPagesRead, containerId) {
-    const container = document.getElementById(containerId);
-    
-    container.innerHTML = ""; // Clear previous badges
-    const badges = getEarnedBadges(totalPagesRead);
-    
-    badges.forEach(badge => {
-
-        const badgeElement = document.createElement("div");
-        badgeElement.classList.add("badge");
-        badgeElement.innerHTML = `
-            <img src="${badge.unlocked ? badge.imageUrl : 'images/locked-badge.png'}" 
-                 alt="${badge.name} Badge">
-            <p>${badge.unlocked ? badge.name : "Locked"}</p>
-        `;
-        container.appendChild(badgeElement);
-    });
-}
 
 // Add event listener to each book element in bookshelf 
 document.addEventListener("DOMContentLoaded", function () {

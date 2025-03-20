@@ -76,50 +76,9 @@ window.closeBadgePopup = function () {
     closePopup("badge-popup");
 };
 
-// Function to display book logs dynamically
-window.displayBookLogs = function(bookLogs) {
-    const historyContent = document.getElementById("history-content");
-    historyContent.innerHTML = ""; // Clear existing logs
-
-    bookLogs.forEach((log, index) => {
-        const logEntry = document.createElement("div");
-        logEntry.classList.add("log-entry");
-
-        const bookTitle = document.createElement("h2");
-        bookTitle.textContent = `Book: ${log.book}`;
-        logEntry.appendChild(bookTitle);
-
-        const pagesRead = document.createElement("p");
-        pagesRead.textContent = `Pages Read: ${log.pagesRead}`;
-        logEntry.appendChild(pagesRead);
-
-        const timeSpent = document.createElement("p");
-        timeSpent.textContent = `Time Spent: ${log.timeSpent} minutes`;
-        logEntry.appendChild(timeSpent);
-
-        const dateAdded = document.createElement("p");
-        dateAdded.textContent = `Date Added: ${log.dateAdded.toISOString().split('T')[0]}`;
-        logEntry.appendChild(dateAdded);
-
-        // Add delete button with a bin icon
-        const deleteButton = document.createElement("button");
-        deleteButton.classList.add("delete-button");
-        deleteButton.innerHTML = `🗑️`; // Bin icon
-        logEntry.appendChild(deleteButton);
-
-        // Add event listener to delete the specific log
-        deleteButton.addEventListener("click", () => {
-            Tim.removeBookLog(index, 1); // Remove the log from the array
-            window.displayBookLogs(bookLogs); // Re-render the logs
-        });
-
-        historyContent.appendChild(logEntry);
-    });
-};
-
-// Modify the openLogHistory function to use the Child instance's book logs
+// Open log history
 window.openLogHistory = function() {
-    displayBookLogs(Tim.bookLogs);
+    Tim.displayBookLogs();
     openPopup("historyPopup", "block");
 };
 

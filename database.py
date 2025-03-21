@@ -71,7 +71,7 @@ def insert_book_log(book_id, child_id, pages_read, time_spent, date_added, compl
     try:
         # Add the new book log
         cursor.execute("""
-            INSERT INTO BookLog (book_id, child_id, pages_read, time_spent, date_added, completed)
+            INSERT INTO BookLogs (book_id, child_id, pages_read, time_spent, date_added, completed)
             VALUES (?, ?, ?, ?, ?, ?)
         """, (book_id, child_id, pages_read, time_spent, date_added, completed))
         conn.commit()
@@ -85,12 +85,50 @@ def insert_book_log(book_id, child_id, pages_read, time_spent, date_added, compl
 
 #Add book to book table
 def insert_book(title, author, pages, genre, band):
-    book = (title, None, author, pages, genre, band)
+    conn = sqlite3.connect('data.db')  
+    cursor = conn.cursor()
+
+    try:
+        # Insert the book into the database
+        cursor.execute("INSERT INTO Books (title, author, pages, genre, band) VALUES (?, ?, ?, ?, ?)",
+                       (title, author, pages, genre, band))
+        conn.commit()
+    except Exception as e:
+        print(f"Error inserting book: {e}")
+    finally:
+        conn.close()
+
+# Check if the table is empty
+def is_books_table_empty():
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO Books (title, image, author, pages, genre, band) VALUES (?, ?, ?, ?, ?, ?)", book)
-    conn.commit()
-    conn.close()
+
+    try:
+        cursor.execute("SELECT COUNT(*) FROM Books")
+        count = cursor.fetchone()[0]
+        return count == 0  # Returns True if the table is empty
+    except Exception as e:
+        print(f"Error checking table: {e}")
+        return False
+    finally:
+        conn.close()
+
+# Records to be added
+records = [
+    ('Cat in the hat', 'Dr. Seuss', 61, 'Picture book', '1'),
+    ('The Gruffalo', 'Julia Donaldson', 32, 'Picture book', '1'),
+    ('The Tiger who came to tea', 'Judith Kerr', 32, 'Picture book', '3'),
+    ('Funnybones', 'Janet & Allan Ahlberg', 32, 'Juvenile Fiction', '7'),
+    ('The Rainbow Fish', 'Marcus Pfister', 32, 'Juvenile Fiction', '3')
+]
+
+# Insert records only if the table is empty
+if is_books_table_empty():
+    for record in records:
+        insert_book(record[0], record[1], record[2], record[3], record[4])
+    print("Records added to the Books table.")
+else:
+    print("The Books table already has records. No new records were added.")
 
 #Search for book with title
 def return_record(query):
@@ -182,7 +220,7 @@ def get_child_books(child_id):
     conn.close()
 
     return jsonify([
-        {"id": book[0], "title": book[1], "image": book[2], "author": book[3], "pages": book[4], "genre": book[5], "band": book[6]}
+        {"id": book[0], "title": book[1], "author": book[2], "pages": book[3], "genre": book[4], "band": book[5]}
         for book in books
     ])
 
@@ -192,10 +230,10 @@ def get_book_logs(child_id):
     conn = sqlite3.connect('data.db')
     cursor = conn.cursor()
     cursor.execute("""
-        SELECT BookLog.*, Books.title, Books.image, Books.author, Books.pages, Books.genre, Books.band
-        FROM BookLog
-        JOIN Books ON BookLog.book_id = Books.id
-        WHERE BookLog.child_id = ?
+        SELECT BookLogs.*, Books.title, Books.author, Books.pages, Books.genre, Books.band
+        FROM BookLogs
+        JOIN Books ON BookLogs.book_id = Books.id
+        WHERE BookLogs.child_id = ?
     """, (child_id,))
     logs = cursor.fetchall()
     conn.close()
@@ -203,9 +241,39 @@ def get_book_logs(child_id):
     return jsonify([
         {"log_id": log[0], "book_id": log[1], "child_id": log[2], "pages_read": log[3],
          "time_spent": log[4], "date_added": log[5], "completed": log[6],
-         "title": log[7], "image": log[8], "author": log[9], "pages": log[10], "genre": log[11], "band": log[12]}
+         "title": log[7], "author": log[8], "pages": log[9], "genre": log[10], "band": log[11]}
         for log in logs
     ])
+
+# Clears Booklogs table 
+@app.route('/clear_book_log', methods=['DELETE'])
+def clear_book_log():
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DELETE FROM BookLogs")  # Clears all rows in the table
+        conn.commit()
+        return jsonify({"message": "Book log table cleared successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
+
+#Clears ChildBooks table
+@app.route('/clear_child_books', methods=['DELETE'])
+def clear_child_books():
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("DELETE FROM ChildBooks")  # Clear all rows in the ChildBooks table
+        conn.commit()
+        return jsonify({"message": "ChildBooks table cleared successfully"}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    finally:
+        conn.close()
 
 if __name__ == '__main__':
     app.run(debug=True)
@@ -217,23 +285,4 @@ if __name__ == '__main__':
 # results = cursor.fetchall()
 # conn.close()
 # for result in results:
-#     print(result) 
-
-# Code used to table create and store entries in table
-#Create a table
-# cursor.execute("""CREATE TABLE IF NOT EXISTS bookInfo (
-#                title text,
-#                image blob,
-#                author text,
-#                pages integer,
-#                genre text,
-#                band integer
-#                )""")
-
-# records = [('Cat in the hat', '', 'Dr. Seuss', 61, 'Picture book', '1'),
-#            ('The Gruffalo','', 'Julia Donaldson', 32, 'Picture book', '1'),
-#            ('The Tiger who came to tea', '', 'Judith Kerr', 32, 'Picture book', '3'),
-#            ('Funnybones', '', 'Janet & Allan Ahlberg', 32, 'Juvenile Fiction', '7'),
-#            ('The Rainbow Fish', '', 'Marcus Pfister',32, 'Juvenile Fiction', '3')]
-# for record in records:
-#     insert_book(record[0], record[2], record[3], record[4], record[5])
+#     print(result)

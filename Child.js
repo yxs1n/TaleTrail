@@ -11,7 +11,12 @@ class Child {
 
     // Add to current books
     addCurrentBook(book) {
-        this.currentBooks.push(book);
+        if(book instanceof Book) {
+            this.currentBooks.push(book);
+        }
+        else {
+            console.error("Invalid Book object.");
+        }
     }
 
     // add a BookLog entry
@@ -24,11 +29,74 @@ class Child {
         }
     }
 
+    // Save all elements of currentBooks array to the backend
+    saveCurrentBooks() {
+    // Iterate through the currentBooks array
+    this.currentBooks.forEach(book => {
+        // Call saveBook for each book in the array
+        this.saveBook(1, book.id);
+    });
+    console.log("CurrentBooks saved to backend:", this.currentBooks);
+}
+
+    //Updates current books array
+    async updateCurrentBooks() {
+        this.currentBooks = [];
+        await this.clearChildBooks();
+        // Adding books to current books that are in the booklogs array
+        for (var i = 0; i < this.bookLogs.length; i++) {
+            // Check if the book from bookLogs is already in currentBooks by ID
+            if (!this.currentBooks.some(book => book.id === this.bookLogs[i].book.id)) {
+                // Add the book to currentBooks if it's not already present
+                this.currentBooks.push(this.bookLogs[i].book);
+            }
+        }
+        // Re save updated current books to backend
+        this.saveCurrentBooks()
+    }
+
+    // Clears the ChildBooks table in the backend
+    clearChildBooks() {
+        return fetch('http://127.0.0.1:5000/clear_child_books', {
+            method: 'DELETE', 
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('ChildBooks table cleared in backend:', data);
+        })
+        .catch(error => console.error('Error clearing ChildBooks table:', error));
+    }
+
     // Remove BookLog
     removeBookLog(startIndex, quant) {
-        const book = this.bookLogs[startIndex];
+        //Removes log from this.bookLogs array
         this.bookLogs.splice(startIndex, quant);
-        console.log(`Book log removed for ${this.name}: ${book.book}`);
+
+        // Updates current books array in fronted and clears it in backend
+        this.updateCurrentBooks()
+        
+        // Clear the BookLog table in the backend
+        this.clearBookLogs()
+
+        // Re-save the updated bookLogs array to the backend
+        .then(() => {
+            this.bookLogs.forEach(bookLog => {
+                this.saveBookLog(
+                    bookLog.book.id, // Book ID
+                    1, // Only one child so hardcoded id
+                    bookLog.pagesRead,
+                    bookLog.timeSpent,
+                    bookLog.dateAdded,
+                    bookLog.completed
+                );
+            });
+        })
+        .catch(error => console.error('Error in removing and saving book logs:', error));
+
+        console.log(`Book log removed for ${this.name}`);
     }
 
     getTotalPagesRead() {
@@ -38,6 +106,21 @@ class Child {
             console.log(this.bookLogs[i]);
         }
         return this.totalPagesRead;
+    }
+
+    //Clears Booklogs table in the backend
+    clearBookLogs() {
+        return fetch('http://127.0.0.1:5000/clear_book_log', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Book log table cleared in backend:', data);
+        })
+        .catch(error => console.error('Error clearing book log table:', error));
     }
 
     // Stores child to SQL table
@@ -124,7 +207,7 @@ class Child {
             .then(response => response.json())
             .then(data => {
                 this.currentBooks = data.map(book => new Book(
-                    book.id, book.title, book.image, book.author, book.pages, book.genre, book.band
+                    book.id, book.title, book.author, book.pages, book.genre, book.band
                 ));
                 console.log('Fetched current books:', this.currentBooks);
             })
@@ -138,7 +221,7 @@ class Child {
             .then(data => {
                 this.bookLogs = data.map(log => new BookLog(
                     new Book(
-                        log.book_id, log.title, log.image, log.author, log.pages, log.genre, log.band
+                        log.book_id, log.title, log.author, log.pages, log.genre, log.band
                     ),
                     log.pages_read, log.time_spent, new Date(log.date_added), log.completed
                 ));
@@ -158,7 +241,7 @@ class Child {
             logEntry.classList.add("log-entry");
     
             const bookTitle = document.createElement("h2");
-            bookTitle.textContent = `Book: ${log.book}`;
+            bookTitle.textContent = `Book: ${log.book.title}`;
             logEntry.appendChild(bookTitle);
     
             const pagesRead = document.createElement("p");

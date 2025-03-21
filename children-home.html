@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="main.css">
     <link rel="icon" href="images/taletraillogo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="pathway.js"></script>
     <script type="module" src="script.js"></script>
     <title> Home - TaleTrail</title>
 </head>
@@ -87,10 +89,20 @@
                 </a>
             </button>
             <!--Roadmap Popup-->
-            <div class="popup-container" id="roadmap-popup">
+            <div class="roadmap-popup" id="roadmap-popup">
                 <button type="button" class="close-button" onclick="closeRoadmap()"> <ion-icon name="close"></ion-icon> </button>
                 <h1>Your roadmap </h1>
                 <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
+                <div class="graph-container">
+                    <div>
+                        <h2>Pages Read This Week</h2>
+                        <canvas id="pagesReadChart"></canvas>
+                    </div>
+                    <div>
+                        <h2>Time Spent Reading This Week</h2>
+                        <canvas id="timeSpentChart"></canvas>
+                    </div>
+                </div>
             </div>
             <!--Challenges Button-->
             <button class="ch-btn" onclick="openChallenges()">

@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // Displays results beneath search bar
             if(data.length > 0) {
                 data.forEach(record => {
-                    const [id, title, image, author, pages, genre, band] = record;
+                    const [id, title, author, pages, genre, band] = record;
                     const recordElement = document.createElement('div');
                     recordElement.className = 'search-result';
                     recordElement.innerHTML = `
@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const bookTitle = selectedBookTitle.textContent;
         const {id, author, pages, genre, band} = selectedBookData;
 
-        const book = new Book(id, bookTitle, null, author, pages, genre, band);
+        const book = new Book(id, bookTitle, author, pages, genre, band);
         const bookLog = new BookLog(book, pagesRead, timeSpent);
         Tim.addCurrentBook(book);
         Tim.addBooklog(bookLog);

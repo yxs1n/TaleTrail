@@ -36,23 +36,18 @@
     align-items: center;
     justify-content: center;
     background-color: black;
-    padding: 20px;
-    border-radius: 1rem;
-    box-shadow: 0px 6px 10px #53d5fd;
-    gap: 8px;
+    padding: 10px;
     width: 60%;
     height: 45%;
-    font-size: x-large;
     color: white;
 }
 
 .login-form img {
-    width: 10vh;
-    height: 10vh;
+    width: 20vh;
+    height: 20vh;
 }
 
 .login-form label {
-    font-size: 1.5rem;
     color: white;
     font-weight: bold;
     margin-bottom: 0.5rem;
@@ -83,7 +78,6 @@
 
 #login-btn {
     font-size: 1rem;
-    background-image: linear-gradient(to top, #53d5fd 0%, #0035e5 100%);
     padding: 14px 32px;
     border: none;
     border-radius: 4px;
@@ -96,7 +90,6 @@
 }
 
 #login-btn:hover {
-    background-image: linear-gradient(to top, #0035e5 0%, #53d5fd 100%);
     transition: all 0.35s ease;
 }
 

@@ -1,11 +1,11 @@
-import BookLog from './BookLog.js';
-
+// import BookLog from './BookLog.js'; (uncomment for use in testing)
 class Pathway {
     constructor(bookLogs) {
         this.bookLogs = bookLogs;
         this.processedData = this.processData();
     }
 
+    // Calculate data for use in graph
     processData() {
         let cumulativePages = 0;
         let cumulativeTime = 0;
@@ -75,16 +75,16 @@ class Pathway {
 
 export default Pathway;
 
-// Sample data
-document.addEventListener('DOMContentLoaded', () => {
-    const bookLogs = [
-        new BookLog({ title: "Book A" }, 30, 30, new Date("2025-02-25")),
-        new BookLog({ title: "Book B" }, 25, 55, new Date("2025-02-26")),
-        new BookLog({ title: "Book C" }, 40, 95, new Date("2025-02-27")),
-        new BookLog({ title: "Book D" }, 15, 110, new Date("2025-02-28")),
-        new BookLog({ title: "Book E" }, 35, 145, new Date("2025-02-29")),
-        new BookLog({ title: "Book F" }, 20, 165, new Date("2025-03-01"))
-    ];
+// Sample data used for testing
+// document.addEventListener('DOMContentLoaded', () => {
+//     const bookLogs = [
+//         new BookLog({ title: "Book A" }, 30, 30, new Date("2025-02-25")),
+//         new BookLog({ title: "Book B" }, 25, 55, new Date("2025-02-26")),
+//         new BookLog({ title: "Book C" }, 40, 95, new Date("2025-02-27")),
+//         new BookLog({ title: "Book D" }, 15, 110, new Date("2025-02-28")),
+//         new BookLog({ title: "Book E" }, 35, 145, new Date("2025-02-29")),
+//         new BookLog({ title: "Book F" }, 20, 165, new Date("2025-03-01"))
+//     ];
 
     // const pathway = new Pathway(bookLogs);
 
@@ -93,5 +93,5 @@ document.addEventListener('DOMContentLoaded', () => {
     //     openRoadmap();
     //     pathway.renderCharts(); // Render charts when the popup opens
     // });
-});
+// });
 

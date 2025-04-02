@@ -6,9 +6,6 @@ class BookLog {
         this.dateAdded = dateAdded;
         this.completed = completed;
     }
-
-    /*triggerInteraction()*/
-    
 }
 
 export default BookLog;

@@ -2,17 +2,74 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 import sqlite3
 
+# Initialise Flask app
 app = Flask(__name__)
-CORS(app)
+CORS(app) # Enable CORS for the app to allow cross-origin requests 
 
 conn = sqlite3.connect('data.db')
 cursor = conn.cursor()
 
+# Execute database schema
 with open('schema.sql', 'r') as f:
     cursor.executescript(f.read())
 
 conn.commit()
 conn.close()
+
+
+# Logic to add books to books table #
+
+
+# Check if the books table is empty
+def is_books_table_empty():
+    conn = sqlite3.connect('data.db')
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute("SELECT COUNT(*) FROM Books")
+        count = cursor.fetchone()[0]
+        return count == 0  # Returns True if the table is empty
+    except Exception as e:
+        print(f"Error checking table: {e}")
+        return False
+    finally:
+        conn.close()
+
+#Add book to book table
+def insert_book(title, author, pages, genre, band):
+    conn = sqlite3.connect('data.db')  
+    cursor = conn.cursor()
+
+    try:
+        # Insert the book into the database
+        cursor.execute("INSERT INTO Books (title, author, pages, genre, band) VALUES (?, ?, ?, ?, ?)",
+                       (title, author, pages, genre, band))
+        conn.commit()
+    except Exception as e:
+        print(f"Error inserting book: {e}")
+    finally:
+        conn.close()
+
+# Records to be added
+records = [
+    ('Cat in the hat', 'Dr. Seuss', 61, 'Picture book', 1),
+    ('The Gruffalo', 'Julia Donaldson', 32, 'Picture book', 1),
+    ('The Tiger who came to tea', 'Judith Kerr', 32, 'Picture book', 3),
+    ('Funnybones', 'Janet & Allan Ahlberg', 32, 'Juvenile Fiction', 7),
+    ('The Rainbow Fish', 'Marcus Pfister', 32, 'Juvenile Fiction', 3)
+]
+
+# Insert records only if the table is empty
+if is_books_table_empty():
+    for record in records:
+        insert_book(record[0], record[1], record[2], record[3], record[4])
+    print("Records added to the Books table.")
+else:
+    print("The Books table already has records. No new records were added.")
+
+
+# Database Operations #
+
 
 #Add child to child table
 def insert_child(name):
@@ -83,53 +140,6 @@ def insert_book_log(book_id, child_id, pages_read, time_spent, date_added, compl
     finally:
         conn.close()
 
-#Add book to book table
-def insert_book(title, author, pages, genre, band):
-    conn = sqlite3.connect('data.db')  
-    cursor = conn.cursor()
-
-    try:
-        # Insert the book into the database
-        cursor.execute("INSERT INTO Books (title, author, pages, genre, band) VALUES (?, ?, ?, ?, ?)",
-                       (title, author, pages, genre, band))
-        conn.commit()
-    except Exception as e:
-        print(f"Error inserting book: {e}")
-    finally:
-        conn.close()
-
-# Check if the table is empty
-def is_books_table_empty():
-    conn = sqlite3.connect('data.db')
-    cursor = conn.cursor()
-
-    try:
-        cursor.execute("SELECT COUNT(*) FROM Books")
-        count = cursor.fetchone()[0]
-        return count == 0  # Returns True if the table is empty
-    except Exception as e:
-        print(f"Error checking table: {e}")
-        return False
-    finally:
-        conn.close()
-
-# Records to be added
-records = [
-    ('Cat in the hat', 'Dr. Seuss', 61, 'Picture book', '1'),
-    ('The Gruffalo', 'Julia Donaldson', 32, 'Picture book', '1'),
-    ('The Tiger who came to tea', 'Judith Kerr', 32, 'Picture book', '3'),
-    ('Funnybones', 'Janet & Allan Ahlberg', 32, 'Juvenile Fiction', '7'),
-    ('The Rainbow Fish', 'Marcus Pfister', 32, 'Juvenile Fiction', '3')
-]
-
-# Insert records only if the table is empty
-if is_books_table_empty():
-    for record in records:
-        insert_book(record[0], record[1], record[2], record[3], record[4])
-    print("Records added to the Books table.")
-else:
-    print("The Books table already has records. No new records were added.")
-
 #Search for book with title
 def return_record(query):
     conn = sqlite3.connect('data.db')
@@ -137,7 +147,11 @@ def return_record(query):
     cursor.execute("SELECT * FROM Books WHERE lower(title) = lower(?)", (query,))
     results = cursor.fetchall()
     conn.close()
-    return results
+    return results   
+     
+
+# Routes #
+
 
 #Adds book data to book table from manual entry
 @app.route('/add_book', methods=['POST'])
@@ -275,14 +289,6 @@ def clear_child_books():
     finally:
         conn.close()
 
+# Run the app in debug mode if the file is executed directly
 if __name__ == '__main__':
     app.run(debug=True)
-
-# # Print table content
-# conn = sqlite3.connect('books.db')
-# cursor = conn.cursor()
-# cursor.execute("SELECT * FROM bookInfo")
-# results = cursor.fetchall()
-# conn.close()
-# for result in results:
-#     print(result)

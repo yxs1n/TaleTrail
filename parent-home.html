@@ -1,51 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <link rel="icon" href="images/taletraillogo.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="pathway.js"></script> 
-    <script type="module" src="script.js"></script>
-    <title> Home - TaleTrail</title>
-</head>
-<body>
-    <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <p id="welcome-msg">Welcome back, {ParentName}!</p>
-            <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar-logo">
-            <div class="navbar-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="main.css">
+        <link rel="icon" href="images/taletraillogo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="module" src="pathway.js"></script> 
+        <script type="module" src="script.js"></script>
+        <title> Home - TaleTrail</title>
+    </head>
+    <body>
+        <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
+         <nav class="navbar">
+            <div class="navbar-container">
+                <p id="welcome-msg">Welcome back, {ParentName}!</p>
+                <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar-logo">
+                <div class="navbar-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="profile.html" class="navbar-links">
+                            <ion-icon name="people-outline" id="navbar-icon"></ion-icon>
+                            Switch Profile
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-links">
+                            <ion-icon name="exit-outline"id="navbar-icon"></ion-icon>
+                            Log Out
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="navbar-menu">
-                <li class="navbar-item">
-                    <a href="profile.html" class="navbar-links">
-                        <ion-icon name="people-outline" id="navbar-icon"></ion-icon>
-                        Switch Profile
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="index.html" class="navbar-links">
-                        <ion-icon name="exit-outline"id="navbar-icon"></ion-icon>
-                        Log Out
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-    <!-- This is the main content of the page. -->
-    <div class="ph-button-container">
+        </nav>
+        <!-- This is the main content of the page. -->
+         <div class="ph-button-container">
             <!-- Roadmap Popup -->
-            <button id="roadmap-button" class="ph-btn" onclick="openRoadmap()">
+             <button id="roadmap-button" class="ph-btn" onclick="openRoadmap()">
                 View Roadmap<ion-icon name="map-outline" class="icons"></ion-icon>
             </button>
 
             <!-- Roadmap Popup container -->
-            <div class="roadmap-popup" id="roadmap-popup">
+             <div class="roadmap-popup" id="roadmap-popup">
                 <button type="button" class="close-button" onclick="closeRoadmap()"><ion-icon name="close"></ion-icon></button>
                 <h1>Your child's roadmap</h1>
                 <p>Here is the roadmap for your child's TaleTrail journey.</p>
@@ -62,78 +62,79 @@
             </div>
         
   
-        <button id = "add-log-button" class="ph-btn" onclick="openAddLog()">
-           Add Log<ion-icon name="add-circle-outline" class="icons"></ion-icon>
-        </button>
-        <!-- Add log popup-->
-         <div class="log-popup" id="myPopup">
-            <form action="" class="popup-container">
-                <button type="button" class="close-button" onclick="closeAddLog()"><ion-icon name="close"></ion-icon></button>
-                <h1>Add Log</h1>
-                <label for="search-input"></label>
-                <input type="search" id="search-input" placeholder="Enter book name here..." required>
-                <button type="button" onclick="searchBooks()" class="search-button" title="Search for a book"><ion-icon name="search-circle-outline"></ion-icon></button>
-                <div id="results"></div>
+            <button id = "add-log-button" class="ph-btn" onclick="openAddLog()">
+                Add Log<ion-icon name="add-circle-outline" class="icons"></ion-icon>
+            </button>
+            <!-- Add log popup-->
+             <div class="log-popup" id="myPopup">
+                <form action="" class="popup-container">
+                    <button type="button" class="close-button" onclick="closeAddLog()"><ion-icon name="close"></ion-icon></button>
+                    <h1>Add Log</h1>
+                    <label for="search-input"></label>
+                    <input type="search" id="search-input" placeholder="Enter book name here..." required>
+                    <button type="button" onclick="searchBooks()" class="search-button" title="Search for a book"><ion-icon name="search-circle-outline"></ion-icon></button>
+                    <div id="results"></div>
 
-                <p>Can't find the book you are looking for?</p>
-                <button type="button" onclick="enterManually()" class="manual-entry-button">Enter Manually</button>
-            </form>
-        </div>
-        <!-- Manual entry popup-->
-         <div class="log-popup" id="manual-entry-popup" style="display: none;">
-            <div class="popup-container">
-                <button type="button" class="close-button" onclick="closeManualEntryPopup()">X</button>
-                <h1>Enter Book Details Manually</h1>
-                <form id="add-book-form">
-                    <label for="title">Title:</label>
-                    <input type="text" name="title" required><br>
-                    <label for="author">Author:</label>
-                    <input type="text" name="author" required><br>
-                    <label for="pages">Pages:</label>
-                    <input type="number" name="pages" required><br>
-                    <label for="genre">Genre:</label>
-                    <input type="text" name="genre" required><br>
-                    <label for="band">Band:</label>
-                    <input type="number" name="band" required><br>
-                    <input type="submit" value="Add Book">
+                    <p>Can't find the book you are looking for?</p>
+                    <button type="button" onclick="enterManually()" class="manual-entry-button">Enter Manually</button>
                 </form>
             </div>
-        </div>
-    <!-- Enter book details popup -->
-     <div class="log-popup" id="detailsPopup" style="display: none;">
-        <div class="popup-container">
-            <button type="button" class="close-button" onclick="closeDetailsPopup()"><ion-icon name="close"></ion-icon></button>
-            <h1 id="selected-book-title">Selected Book</h1>
-            <form id="details-form">
-                <label for="pages-read">Pages Read:</label>
-                <input type="number" id="pages-read" name="pages-read" required><br>
-
-                <label for="time-spent">Time Spent (minutes):</label>
-                <input type="number" id="time-spent" name="time-spent" required><br>
-
-                <button type="button" onclick="saveLog()">Save</button>
-                <button type="button" onclick="closeDetailsPopup()">Cancel</button>
-            </form>
-        </div>
-    </div>
-
-
-    <button id="logHistoryButton" class="ph-btn" onclick="openLogHistory()">
-        Log History<ion-icon name="receipt-outline" class="icons"></ion-icon>
-    </button>
-    <!-- Book Log History Popup -->
-     <div class="log-popup" id="historyPopup" style="display: none;">
-        <div class="popup-container">
-            <button type="button" class="close-button" onclick="closeHistoryPopup()"><ion-icon name="close"></ion-icon></button>
-            <h1>Book Log History</h1>
-            <div id="history-content">
-                <!-- This will be filled dynamically with log entries -->
+            <!-- Manual entry popup-->
+             <div class="log-popup" id="manual-entry-popup" style="display: none;">
+                <div class="popup-container">
+                    <button type="button" class="close-button" onclick="closeManualEntryPopup()">X</button>
+                    <h1>Enter Book Details Manually</h1>
+                    <form id="add-book-form">
+                        <label for="title">Title:</label>
+                        <input type="text" name="title" required><br>
+                        <label for="author">Author:</label>
+                        <input type="text" name="author" required><br>
+                        <label for="pages">Pages:</label>
+                        <input type="number" name="pages" required><br>
+                        <label for="genre">Genre:</label>
+                        <input type="text" name="genre" required><br>
+                        <label for="band">Band:</label>
+                        <input type="number" name="band" required><br>
+                        <input type="submit" value="Add Book">
+                    </form>
                 </div>
-                <button type="button" onclick="closeHistoryPopup()">Close</button>
             </div>
-        </div>
-  </div>
-  <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-  <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-  </body>
+            <!-- Enter book details popup -->
+             <div class="log-popup" id="detailsPopup" style="display: none;">
+                <div class="popup-container">
+                    <button type="button" class="close-button" onclick="closeDetailsPopup()"><ion-icon name="close"></ion-icon></button>
+                    <h1 id="selected-book-title">Selected Book</h1>
+                    <form id="details-form">
+                        <label for="pages-read">Pages Read:</label>
+                        <input type="number" id="pages-read" name="pages-read" required><br>
+
+                        <label for="time-spent">Time Spent (minutes):</label>
+                        <input type="number" id="time-spent" name="time-spent" required><br>
+
+                        <button type="button" onclick="saveLog()">Save</button>
+                        <button type="button" onclick="closeDetailsPopup()">Cancel</button>
+                    </form>
+                </div>
+            </div>
+
+
+            <button id="logHistoryButton" class="ph-btn" onclick="openLogHistory()">
+                Log History<ion-icon name="receipt-outline" class="icons"></ion-icon>
+            </button>
+            <!-- Book Log History Popup -->
+             <div class="log-popup" id="historyPopup" style="display: none;">
+                <div class="popup-container">
+                    <button type="button" class="close-button" onclick="closeHistoryPopup()"><ion-icon name="close"></ion-icon></button>
+                    <h1>Book Log History</h1>
+                    <div id="history-content">
+                        <!-- This will be filled dynamically with log entries -->
+                        </div>
+                        <button type="button" onclick="closeHistoryPopup()">Close</button>
+                    </div>
+                </div>
+            </div>
+            
+            <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </body>
 </html>

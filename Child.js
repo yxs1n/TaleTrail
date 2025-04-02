@@ -31,13 +31,13 @@ class Child {
 
     // Save all elements of currentBooks array to the backend
     saveCurrentBooks() {
-    // Iterate through the currentBooks array
-    this.currentBooks.forEach(book => {
-        // Call saveBook for each book in the array
-        this.saveBook(1, book.id);
-    });
-    console.log("CurrentBooks saved to backend:", this.currentBooks);
-}
+        // Iterate through the currentBooks array
+        this.currentBooks.forEach(book => {
+            // Call saveBook for each book in the array
+            this.saveBook(1, book.id);
+        });
+        console.log("CurrentBooks saved to backend:", this.currentBooks);
+    }
 
     //Updates current books array
     async updateCurrentBooks() {

@@ -1,139 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
-    <link rel="icon" href="images/taletraillogo.png">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script type="module" src="pathway.js"></script>
-    <script type="module" src="script.js"></script>
-    <title> Home - TaleTrail</title>
-</head>
-<body>
-<!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
-    <nav class="navbar">
-        <div class="navbar-container">
-            <p id="welcome-msg">Welcome back, {ChildName}!</p>
-            <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar-logo">
-            <div class="navbar-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="main.css">
+        <link rel="icon" href="images/taletraillogo.png">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script type="module" src="pathway.js"></script>
+        <script type="module" src="script.js"></script>
+        <title> Home - TaleTrail</title>
+    </head>
+    <body>
+        <!-- This is the header of the page. It contains the logo, the name of the user, and the navigation bar. -->
+         <nav class="navbar">
+            <div class="navbar-container">
+                <p id="welcome-msg">Welcome back, {ChildName}!</p>
+                <img src="images/taletraillogo.png" alt="TaleTrail" id="navbar-logo">
+                <div class="navbar-toggle" id="mobile-menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <ul class="navbar-menu">
+                    <li class="navbar-item">
+                        <a href="profile.html" class="navbar-links">
+                            <ion-icon name="people-outline" id="navbar-icon"></ion-icon>
+                            Switch Profile
+                        </a>
+                    </li>
+                    <li class="navbar-item">
+                        <a href="index.html" class="navbar-links">
+                            <ion-icon name="exit-outline"id="navbar-icon"></ion-icon>
+                            Log Out
+                        </a>
+                    </li>
+                </ul>
             </div>
-            <ul class="navbar-menu">
-                <li class="navbar-item">
-                    <a href="profile.html" class="navbar-links">
-                        <ion-icon name="people-outline" id="navbar-icon"></ion-icon>
-                        Switch Profile
-                    </a>
-                </li>
-                <li class="navbar-item">
-                    <a href="index.html" class="navbar-links">
-                        <ion-icon name="exit-outline"id="navbar-icon"></ion-icon>
-                        Log Out
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
+        </nav>
 
-    <!-- This is the main content of the page. -->
-    <div class="ch-content">
-        <section class="left-content">
-            <!-- This is the bookshelf section. -->
-            <div class="bookshelf">
-                <h2 class="bookshelf-title">My Books<ion-icon name="book" class="bookshelf-icon"></ion-icon></h2>
-                <div class="shelf">
-                    <div class="book">📘</div>
-                    <div class="book">📕</div>
-                    <div class="book">📗</div>
-                    <div class="book">📙</div>
-                </div>
+        <!-- This is the main content of the page. -->
+         <div class="ch-content">
+            <section class="left-content">
+                <!-- This is the bookshelf section. -->
+                 <div class="bookshelf">
+                    <h2 class="bookshelf-title">My Books<ion-icon name="book" class="bookshelf-icon"></ion-icon></h2>
+                    <div class="shelf">
+                        <div class="book">📘</div>
+                        <div class="book">📕</div>
+                        <div class="book">📗</div>
+                        <div class="book">📙</div>
+                    </div>
 
-                <div class="shelf">
-                    <div class="book">📘</div>
-                    <div class="book">📕</div>
-                    <div class="book">📗</div>
-                    <div class="book">📖</div>
-                </div>
+                    <div class="shelf">
+                        <div class="book">📘</div>
+                        <div class="book">📕</div>
+                        <div class="book">📗</div>
+                        <div class="book">📖</div>
+                    </div>
 
-                <div class="shelf">
+                    <div class="shelf">
                     
-                </div>
+                    </div>
 
-                <div class="shelf">
+                    <div class="shelf">
 
+                    </div>
                 </div>
-            </div>
             
-        </section>
-        <section class="middle-content">
-            <div id="daily-streak">
+            </section>
+            <section class="middle-content">
+                <div id="daily-streak">
                     <p>DAILY READING STREAK:</p>
                     <p id="streak"><ion-icon name="flame" id="streak-icon"></ion-icon>3<ion-icon name="flame" id="streak-icon"></ion-icon></p>
-            </div>
-            <div id="current-book-container">
-                <p> CURRENT BOOK</p>
-                <br>
-                <img src="images/book.png" alt="Book" id="current-book">
-                <br>
-                <p> Title: </p>
-            </div>
-        </section>
-        <section class="right-content">
-            <!--Roadmap Button-->
-            <button class="ch-btn" onclick="openRoadmap()">
-                <ion-icon name="map" class="ch-icons"></ion-icon>
-                View Roadmap 
-                </a>
-            </button>
-            <!--Roadmap Popup-->
-            <div class="roadmap-popup" id="roadmap-popup">
-                <button type="button" class="close-button" onclick="closeRoadmap()"> <ion-icon name="close"></ion-icon> </button>
-                <h1>Your roadmap </h1>
-                <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
-                <div class="graph-container">
-                    <div>
-                        <h2>Pages Read This Week</h2>
-                        <canvas id="pagesReadChart"></canvas>
+                </div>
+                <div id="current-book-container">
+                    <p> CURRENT BOOK</p>
+                    <br>
+                    <img src="images/book.png" alt="Book" id="current-book">
+                    <br>
+                    <p> Title: </p>
+                </div>
+            </section>
+            <section class="right-content">
+                <!--Roadmap Button-->
+                <button class="ch-btn" onclick="openRoadmap()">
+                    <ion-icon name="map" class="ch-icons"></ion-icon>
+                    View Roadmap 
+                </button>
+                <!--Roadmap Popup-->
+                <div class="roadmap-popup" id="roadmap-popup">
+                    <button type="button" class="close-button" onclick="closeRoadmap()"> <ion-icon name="close"></ion-icon> </button>
+                    <h1>Your roadmap </h1>
+                    <p>Here is the roadmap for your TaleTrail journey. <br> Click on the milestones to view more details </p>
+                    <div class="graph-container">
+                        <div>
+                            <h2>Pages Read This Week</h2>
+                            <canvas id="pagesReadChart"></canvas>
+                        </div>
+                        <div>
+                            <h2>Time Spent Reading This Week</h2>
+                            <canvas id="timeSpentChart"></canvas>
+                        </div>
                     </div>
-                    <div>
-                        <h2>Time Spent Reading This Week</h2>
-                        <canvas id="timeSpentChart"></canvas>
+                </div>
+                <!--Challenges Button-->
+                <button class="ch-btn" onclick="openChallenges()">
+                    <ion-icon name="trophy" class="ch-icons"></ion-icon>
+                    View Challenges
+                </button>
+                <!--Challenges Popup-->
+                <div class="popup-container" id="challenge-popup">
+                    <div class="popup-container">
+                        <button type="button" class="close-button" onclick="closeChallenges()"><ion-icon name="close"></ion-icon></button>
+                        <h1>Your Challenges</h1>
+                        <p>Track your reading challenges here!</p>
+                        <ul id="challenge-list"></ul>
                     </div>
                 </div>
-            </div>
-            <!--Challenges Button-->
-            <button class="ch-btn" onclick="openChallenges()">
-                <ion-icon name="trophy" class="ch-icons"></ion-icon>
-                View Challenges
-            </button>
-            <!--Challenges Popup-->
-            <div class="popup-container" id="challenge-popup">
-                <div class="popup-container">
-                    <button type="button" class="close-button" onclick="closeChallenges()"><ion-icon name="close"></ion-icon></button>
-                    <h1>Your Challenges</h1>
-                    <p>Track your reading challenges here!</p>
-                    <ul id="challenge-list"></ul>
+                <!--Badges Button-->
+                <button class="ch-btn" onclick="openBadgePopup()">
+                    <ion-icon name="medal-outline" class="ch-icons"></ion-icon>
+                    View Badges
+                </button>
+                <!-- Badge Popup -->
+                 <div id="badge-popup" class="popup">
+                    <div class="popup-content">
+                        <button type="button" class="close-button" onclick="closeBadgePopup()"> <ion-icon name="close"></ion-icon> </button>
+                        <h2>Your Earned Badges</h2>
+                        <div id="badge-container" class="badge-container"></div>
+                    </div>
                 </div>
-            </div>
-            <!--Badges Button-->
-            <button class="ch-btn" onclick="openBadgePopup()">
-                <ion-icon name="medal-outline" class="ch-icons"></ion-icon>
-                View Badges
-            </button>
-            <!-- Badge Popup -->
-             <div id="badge-popup" class="popup">
-                <div class="popup-content">
-                    <button type="button" class="close-button" onclick="closeBadgePopup()"> <ion-icon name="close"></ion-icon> </button>
-                    <h2>Your Earned Badges</h2>
-                    <div id="badge-container" class="badge-container"></div>
-                </div>
-            </div>
-        </section>
+            </section>
     
-        <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-</body>
+            <script type="module" src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+            <script nomodule src="https://cdn.jsdelivr.net/npm/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        </body>
 </html>

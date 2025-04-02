@@ -1,20 +1,22 @@
-class Chatbox {
-    constructor(id, parent, child) {
-        this.id = id;
-        this.parent = parent;
-        this.child = child;
-        this.messages = []; // Array to store messages
-    }
+// Not implemented due to time constraints
 
-    addMessage(message) {
-        if (message instanceof Message) {
-            this.messages.push(message);
-        } else {
-            console.error("Invalid message. Must be an instance of Message class.");
-        }
-    }
+// class Chatbox {
+//     constructor(id, parent, child) {
+//         this.id = id;
+//         this.parent = parent;
+//         this.child = child;
+//         this.messages = []; // Array to store messages
+//     }
 
-    viewMessages() {
-        return this.messages.map(msg => msg.formatMessage());
-    }
-}
+//     addMessage(message) {
+//         if (message instanceof Message) {
+//             this.messages.push(message);
+//         } else {
+//             console.error("Invalid message. Must be an instance of Message class.");
+//         }
+//     }
+
+//     viewMessages() {
+//         return this.messages.map(msg => msg.formatMessage());
+//     }
+// }

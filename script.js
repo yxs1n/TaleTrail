@@ -4,23 +4,9 @@ import BookLog from "./BookLog.js";
 import Pathway from "./Pathway.js";
 import Badges from "./Badges.js";
 // Temporary child
-const Tim = new Child("Tim");
-Tim.saveChild();
+const child = new Child("Tim");
+child.saveChild();
 const badges = new Badges();
-
-// Fetch and populate data into Tim object when the DOM is ready
-document.addEventListener('DOMContentLoaded', async () => {
-    try {
-        console.log('Loading data for Tim...');
-        Tim.fetchChildDetails(1);  // Fetch Tim's details using ID 1
-        Tim.fetchChildBooks(1);    // Fetch Tim's books using ID 1
-        Tim.fetchBookLogs(1);      // Fetch Tim's book logs using ID 1
-
-        console.log('All data loaded into Tim:', Tim);
-    } catch (error) {
-        console.error('Error while loading Tim\'s data:', error);
-    }
-});
 
 // Function to open popup
 function openPopup(id, type) {
@@ -71,7 +57,7 @@ window.closeChallenges = function() {
 /* Roadmap Popup */
 window.openRoadmap = function(){
     openPopup("roadmap-popup", "block");
-    const pathway = new Pathway(Tim.bookLogs);
+    const pathway = new Pathway(child.bookLogs);
     pathway.renderCharts();
 }
 
@@ -83,11 +69,8 @@ window.closeRoadmap = function(){
 
 window.openBadgePopup = function () {
     openPopup("badge-popup", "flex");
-    let totalPagesRead = 0; // Change this value for testing
-    console.log(Tim.getTotalPagesRead())
-    badges.renderBadges(Tim.getTotalPagesRead()); 
+    badges.renderBadges(child.getTotalPagesRead()); 
 };
-
 
 window.closeBadgePopup = function () {
     closePopup("badge-popup");
@@ -95,7 +78,7 @@ window.closeBadgePopup = function () {
 
 // Open log history
 window.openLogHistory = function() {
-    Tim.displayBookLogs();
+    child.displayBookLogs();
     openPopup("historyPopup", "block");
 };
 
@@ -104,15 +87,28 @@ window.closeHistoryPopup = function() {
     closePopup("historyPopup");
 }
 
-/* Add log functionality */
-document.addEventListener('DOMContentLoaded', () => {
+// Initialize app: fetch child data, handle search and book interactions once the DOM is fully loaded
+document.addEventListener('DOMContentLoaded', async () => {
+
+    // Fetch and populate data into Tim object when the DOM is ready
+    try {
+        console.log('Loading data for Tim...');
+        child.fetchChildDetails(1);  // Fetch Tim's details using ID 1
+        child.fetchChildBooks(1);    // Fetch Tim's books using ID 1
+        child.fetchBookLogs(1);      // Fetch Tim's book logs using ID 1
+
+        console.log('All data loaded into child:', child);
+    } catch (error) {
+        console.error('Error while loading Tim\'s data:', error);
+    }
+
+    // DOM elements
     const searchBox = document.getElementById('search-input');
     const resultsDiv = document.getElementById('results');
     const selectedBookTitle = document.getElementById('selected-book-title');
-    const pagesRead = document.getElementById('pages-read').value;
-    const timeSpent = document.getElementById('time-spent').value;
     let selectedBookData = {};
     
+    // Search results functionality
     window.searchBooks = async () => {
         const query = searchBox.value.trim();
         // Construct the API URL with the encoded search query parameter to avoid special character issues
@@ -136,20 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>Genre: ${genre}</p>
                     <p>Band: ${band}</p>`;
                     resultsDiv.appendChild(recordElement);
+                    // Display detail entry popup when user selects search result
                     recordElement.addEventListener('click', () => {
                         window.openDetailsPopup(title, {id, author, pages, genre, band});
                     });
                 });
             } else {
-                    resultsDiv.textContent = 'No results found';
-                }
-            } catch (error) {
-                resultsDiv.textContent = 'Error fetching data.';
-                console.error('Error fetching data:', error);
+                resultsDiv.textContent = 'No results found';
             }
-        };
-
-  
+        } catch (error) {
+            resultsDiv.textContent = 'Error fetching data.';
+            console.error('Error fetching data:', error);
+        }
+    };
+    
     // Function to open the book details popup
     window.openDetailsPopup = function(bookTitle, bookData) {
         selectedBookTitle.textContent = bookTitle;
@@ -159,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('time-spent').value = "";
         openPopup('detailsPopup', 'block');
     }
-
+    
     // Function to save book log details
     window.saveLog = function() {
         const pagesRead = document.getElementById('pages-read').value;
@@ -167,20 +163,22 @@ document.addEventListener('DOMContentLoaded', () => {
         const bookTitle = selectedBookTitle.textContent;
         const {id, author, pages, genre, band} = selectedBookData;
 
+        //Instantiate Book and Booklog objects
         const book = new Book(id, bookTitle, author, pages, genre, band);
         const bookLog = new BookLog(book, pagesRead, timeSpent);
-        Tim.addCurrentBook(book);
-        Tim.addBooklog(bookLog);
-        Tim.saveBook(1, book.id)
-        Tim.saveBookLog(book.id, 1, bookLog.pagesRead, bookLog.timeSpent, bookLog.dateAdded, bookLog.completed)
+        // Store Book and Booklog objects in child object
+        child.addCurrentBook(book);
+        child.addBooklog(bookLog);
+        // Save to backend
+        child.saveBook(1, book.id);
+        child.saveBookLog(book.id, 1, bookLog.pagesRead, bookLog.timeSpent, bookLog.dateAdded, bookLog.completed);
 
+        // Close all popups
         closeDetailsPopup();
         closeAddLog();
     }
-});
 
-// Add event listener to each book element in bookshelf 
-document.addEventListener("DOMContentLoaded", function () {
+    // Add event listener to each book element in bookshelf 
     document.querySelectorAll(".book").forEach((book) => {
         book.addEventListener("click", function () {
             alert("Opening book details: " + this.textContent);

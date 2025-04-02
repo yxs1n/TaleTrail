@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS Books (
     author TEXT,
     pages INTEGER,
     genre TEXT,
-    band TEXT
+    band INTEGER
 );
 
 CREATE TABLE IF NOT EXISTS ChildBooks (
